@@ -1,4 +1,3 @@
-# 2. Create a clean server.js file that forces port 80
 cat << 'EOF' > server.js
 const http = require('http');
 const fs = require('fs');
@@ -21,7 +20,3 @@ server.listen(80, () => {
     console.log('Server actively listening on port 80');
 });
 EOF
-
-# 3. Start it with PM2
-pm2 start server.js --name "shop-site"
-pm2 save
