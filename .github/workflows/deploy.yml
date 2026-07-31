@@ -1,0 +1,21 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into Droplet and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /root/MobileMechanicShop
+            git pull origin main
+            cp -f index.html /var/www/html/index.html
