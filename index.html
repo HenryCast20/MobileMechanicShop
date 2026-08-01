@@ -59,10 +59,6 @@
             text-align: center;
             border-bottom: 5px solid var(--accent-red);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         header h1 {
@@ -78,31 +74,34 @@
             font-weight: 300;
         }
 
-        /* Compact Emoji Theme Toggle */
+        /* Floating Bottom-Right Emoji Theme Toggle */
         #theme-toggle {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
             background: var(--accent-red);
             color: #fff;
             border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: background 0.2s, transform 0.1s;
         }
 
         #theme-toggle:hover {
             background-color: #b30321;
+            transform: scale(1.05);
         }
 
         #theme-toggle:active {
-            transform: scale(0.92);
+            transform: scale(0.95);
         }
 
         /* Main Container */
@@ -232,9 +231,11 @@
 </head>
 <body>
 
+    <!-- Floating Theme Toggle Button -->
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+
     <!-- Banner -->
     <header>
-        <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
         <h1>Enrique Mobile Mechanic</h1>
         <p>Professional Roadside Repair & Diagnostic Services</p>
     </header>
