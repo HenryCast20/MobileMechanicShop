@@ -5,13 +5,17 @@ Create table customers(
 customer_id int auto_increment primary key,
 first_name varchar(255) not null,
 last_name varchar(255) not null,
-phone_number varchar(14),
+phone_number varchar(20),
 email varchar(255),
-created_at Timestamp default current_timestamp,
-username varchar(255) not null,
-password_hash varchar(255) not null
 );
 
+create table accounts(
+customer_id int auto_increment primary key,
+username varchar(255) not null,
+password_hash varchar(255) not null,
+created_at Timestamp default current_timestamp,
+foreign key (customer_id) references customers(customer_id) on delete cascade
+);
 
 
 Create table vehicles(
