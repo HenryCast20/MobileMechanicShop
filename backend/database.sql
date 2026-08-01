@@ -6,7 +6,7 @@ customer_id int auto_increment primary key,
 first_name varchar(255) not null,
 last_name varchar(255) not null,
 phone_number varchar(20),
-email varchar(255),
+email varchar(255)
 );
 
 create table accounts(
