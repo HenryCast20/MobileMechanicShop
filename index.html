@@ -55,11 +55,17 @@
         header {
             background: linear-gradient(135deg, var(--primary-blue), #134074);
             color: var(--pure-white);
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
             border-bottom: 5px solid var(--accent-red);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        header .header-content {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -80,13 +86,10 @@
 
         /* Dark Mode Toggle Button */
         #theme-toggle {
-            position: absolute;
-            top: 15px;
-            right: 15px;
             background: var(--accent-red);
             color: #fff;
             border: none;
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: bold;
@@ -231,9 +234,11 @@
 
     <!-- Banner -->
     <header>
+        <div class="header-content">
+            <h1>Enrique Mobile Mechanic</h1>
+            <p>Professional Roadside Repair & Diagnostic Services</p>
+        </div>
         <button id="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
-        <h1>Enrique Mobile Mechanic</h1>
-        <p>Professional Roadside Repair & Diagnostic Services</p>
     </header>
 
     <!-- Center Terminal -->
