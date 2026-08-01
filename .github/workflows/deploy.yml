@@ -23,4 +23,4 @@ jobs:
             npm install
             npm run build
             cd ..
-            pm2 restart server.js
+            pm2 describe server > /dev/null && pm2 restart server || pm2 start server.js --name server
