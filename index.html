@@ -11,6 +11,20 @@
             --pure-white: #ffffff;
             --light-bg: #f4f6f9;
             --text-dark: #212529;
+            --card-bg: #ffffff;
+            --tab-bg: #e9ecef;
+            --input-border: #ced4da;
+            --footer-bg: #ffffff;
+        }
+
+        body.dark-mode {
+            --primary-blue: #134074;
+            --light-bg: #0b131f;
+            --text-dark: #f4f6f9;
+            --card-bg: #1d2d44;
+            --tab-bg: #0f1d30;
+            --input-border: #2c3e50;
+            --footer-bg: #1d2d44;
         }
 
         * {
@@ -20,8 +34,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-         body {
+        body {
             color: var(--text-dark);
+            background-color: var(--light-bg);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -34,6 +49,7 @@
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
   
         header {
@@ -43,6 +59,7 @@
             text-align: center;
             border-bottom: 5px solid var(--accent-red);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         header h1 {
@@ -58,6 +75,30 @@
             font-weight: 300;
         }
 
+        /* Dark Mode Toggle Button */
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-red);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        #theme-toggle:hover {
+            background-color: #b30321;
+        }
+
+        #theme-toggle:active {
+            transform: scale(0.95);
+        }
+
         /* Main Container */
         main {
             flex: 1;
@@ -68,19 +109,21 @@
         }
 
         .terminal-card {
-            background: var(--pure-white);
+            background: var(--card-bg);
             width: 100%;
             max-width: 420px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 37, 69, 0.12);
             overflow: hidden;
             border-top: 4px solid var(--primary-blue);
+            transition: background 0.3s ease;
         }
 
         /* Tab Switcher */
         .tab-buttons {
             display: flex;
-            background: #e9ecef;
+            background: var(--tab-bg);
+            transition: background 0.3s ease;
         }
 
         .tab-btn {
@@ -96,7 +139,7 @@
         }
 
         .tab-btn.active {
-            background: var(--pure-white);
+            background: var(--card-bg);
             color: var(--primary-blue);
             border-bottom: 3px solid var(--accent-red);
         }
@@ -127,14 +170,20 @@
             text-transform: uppercase;
         }
 
+        body.dark-mode .input-group label {
+            color: #64b5f6;
+        }
+
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #ced4da;
+            border: 2px solid var(--input-border);
             border-radius: 6px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.2s;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            transition: border-color 0.2s, background 0.3s, color 0.3s;
         }
 
         .input-group input:focus {
@@ -169,8 +218,9 @@
             padding: 15px;
             font-size: 0.85rem;
             color: #6c757d;
-            background: var(--pure-white);
+            background: var(--footer-bg);
             border-top: 1px solid #dee2e6;
+            transition: background 0.3s ease, color 0.3s ease;
         }
     </style>
 </head>
@@ -178,8 +228,9 @@
 
     <!-- Banner -->
     <header>
+        <button id="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
         <h1>Enrique Mobile Mechanic</h1>
-        <p>Professional Repairs & Diagnostic Services</p>
+        <p>Professional Roadside Repair & Diagnostic Services</p>
     </header>
 
     <!-- Center Terminal -->
@@ -249,6 +300,16 @@
                 regSec.classList.add('active');
                 loginSec.classList.remove('active');
                 event.target.classList.add('active');
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const toggleBtn = document.getElementById('theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                toggleBtn.textContent = '☀️ Light Mode';
+            } else {
+                toggleBtn.textContent = '🌙 Dark Mode';
             }
         }
     </script>
