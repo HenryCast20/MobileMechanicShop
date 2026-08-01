@@ -55,17 +55,11 @@
         header {
             background: linear-gradient(135deg, var(--primary-blue), #134074);
             color: var(--pure-white);
-            padding: 25px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-bottom: 5px solid var(--accent-red);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        header .header-content {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -84,15 +78,21 @@
             font-weight: 300;
         }
 
-        /* Dark Mode Toggle Button */
+        /* Compact Emoji Theme Toggle */
         #theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             background: var(--accent-red);
             color: #fff;
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
         }
@@ -102,7 +102,7 @@
         }
 
         #theme-toggle:active {
-            transform: scale(0.95);
+            transform: scale(0.92);
         }
 
         /* Main Container */
@@ -234,11 +234,9 @@
 
     <!-- Banner -->
     <header>
-        <div class="header-content">
-            <h1>Enrique Mobile Mechanic</h1>
-            <p>Professional Roadside Repair & Diagnostic Services</p>
-        </div>
-        <button id="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+        <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+        <h1>Enrique Mobile Mechanic</h1>
+        <p>Professional Roadside Repair & Diagnostic Services</p>
     </header>
 
     <!-- Center Terminal -->
@@ -315,9 +313,9 @@
             document.body.classList.toggle('dark-mode');
             const toggleBtn = document.getElementById('theme-toggle');
             if (document.body.classList.contains('dark-mode')) {
-                toggleBtn.textContent = '☀️ Light Mode';
+                toggleBtn.textContent = '☀️';
             } else {
-                toggleBtn.textContent = '🌙 Dark Mode';
+                toggleBtn.textContent = '🌙';
             }
         }
     </script>
