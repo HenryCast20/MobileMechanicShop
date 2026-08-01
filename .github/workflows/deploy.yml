@@ -18,4 +18,9 @@ jobs:
           script: |
             cd /root/MobileMechanicShop
             git pull origin main
-            cp -f index.html /var/www/html/index.html
+            npm install
+            cd client
+            npm install
+            npm run build
+            cd ..
+            pm2 restart server.js
