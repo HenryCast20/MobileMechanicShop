@@ -1,22 +1,19 @@
-cat << 'EOF' > server.js
-const http = require('http');
-const fs = require('fs');
 const path = require('path');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-    let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.end('<h1>404 Not Found</h1>');
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(content);
-        }
-    });
+// Middleware for parsing JSON, API routes, etc.
+app.use(express.json());
+
+// Serve static files from the React frontend build
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
+// Catch-all route to serve index.html for client-side routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
-server.listen(80, () => {
-    console.log('Server actively listening on port 80');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
-EOF
