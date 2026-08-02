@@ -39,7 +39,7 @@ export default function App() {
       <div className="header-icon">
         <Lottie
           animationData={toolAnimation}
-          loop={true}
+          loop={false}
         />
       </div>
        
