@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: SSH into Droplet and Deploy
         uses: appleboy/ssh-action@master
@@ -15,13 +16,29 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_KEY }}
+
           script: |
-            script: |
-              cd /root/MobileMechanicShop
-              git pull origin main
-              npm install
-              cd client
-              npm install
-              npm run build
-              cd ..
-              pm2 describe server > /dev/null && pm2 restart server || pm2 start server.js --name server
+            cd /root/MobileMechanicShop
+
+            echo "Updating code..."
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "Installing backend dependencies..."
+            npm install
+
+            echo "Building frontend..."
+            cd client
+            npm install
+            npm run build
+
+            echo "Restarting server..."
+            cd ..
+
+            pm2 describe server > /dev/null \
+              && pm2 restart server \
+              || pm2 start server.js --name server
+
+            pm2 save
+
+            echo "Deployment complete!"
