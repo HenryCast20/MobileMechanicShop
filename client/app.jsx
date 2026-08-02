@@ -15,6 +15,7 @@ export default function App() {
   
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
+  const [regUsername, setRegUsername] = useState('');
   const [regPassword, setRegPassword] = useState('');
   
   const [error, setError] = useState('');
