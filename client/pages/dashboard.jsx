@@ -5,33 +5,72 @@ export default function Dashboard({ user }) {
 
   const [showProfile, setShowProfile] = useState(false);
 
-
   return (
-
     <div className="dashboard-page">
-
 
       <header className="dashboard-header">
 
-        <div>
+        <div className="dashboard-brand">
           <h1>Enrique Mobile Mechanic</h1>
           <p>Professional Repair & Diagnostic Services</p>
         </div>
 
 
+        <div className="dashboard-welcome">
+          <h2>
+            Welcome back, {user?.firstName || "Henry"}
+          </h2>
+        </div>
+
+
         <div className="dashboard-actions">
 
-          <button
-            className="profile-toggle"
-            onClick={() => setShowProfile(!showProfile)}
-          >
-            👤 Profile
-          </button>
+          <div className="profile-wrapper">
+
+            <button
+              className="profile-toggle"
+              onClick={() => setShowProfile(!showProfile)}
+            >
+              👤 Profile
+            </button>
+
+
+            {showProfile && (
+
+              <div className="profile-dropdown">
+
+                <h3>Customer Profile</h3>
+
+                <p>
+                  <strong>Name:</strong><br />
+                  {user?.firstName} {user?.lastName}
+                </p>
+
+                <p>
+                  <strong>Email:</strong><br />
+                  {user?.email}
+                </p>
+
+                <p>
+                  <strong>Phone:</strong><br />
+                  {user?.phone || "Not Added"}
+                </p>
+
+
+                <button className="edit-profile-btn">
+                  Edit Profile
+                </button>
+
+              </div>
+
+            )}
+
+          </div>
 
 
           <button
             className="dashboard-logout"
-            onClick={()=>{
+            onClick={() => {
               localStorage.clear();
               window.location.reload();
             }}
@@ -48,110 +87,73 @@ export default function Dashboard({ user }) {
       <main className="dashboard-container">
 
 
-        <section className="dashboard-top">
-
-
-          <div className="welcome-card">
-
-            <h2>
-              Welcome back, {user?.firstName || "Henry"}
-            </h2>
-
-            <p>
-              Manage your vehicle repairs, appointments,
-              service history, and invoices from your dashboard.
-            </p>
-
-          </div>
-
-
-
-          {showProfile && (
-
-            <div className="profile-card">
-
-              <h2>Customer Information</h2>
-
-
-              <p>
-                <b>Name:</b>{" "}
-                {user?.firstName} {user?.lastName}
-              </p>
-
-
-              <p>
-                <b>Email:</b>{" "}
-                {user?.email}
-              </p>
-
-
-              <p>
-                <b>Phone:</b>{" "}
-                {user?.phone || "Not Added"}
-              </p>
-
-
-              <button>
-                Edit Profile
-              </button>
-
-
-            </div>
-
-          )}
-
-
-        </section>
-
-
-
         <section className="dashboard-grid">
 
 
           <div className="dashboard-card">
+
             <h3>📅 Appointments</h3>
+
             <p>
-              View upcoming mechanic visits and scheduled repairs.
+              View upcoming visits, scheduled repairs,
+              and appointment history.
             </p>
+
             <button>
               View Appointments
             </button>
+
           </div>
 
 
 
           <div className="dashboard-card">
+
             <h3>🔧 Services</h3>
+
             <p>
-              Review completed repairs and service history.
+              Review completed repairs,
+              diagnostics, and service records.
             </p>
+
             <button>
               View Services
             </button>
+
           </div>
 
 
 
           <div className="dashboard-card">
+
             <h3>🚗 My Vehicles</h3>
+
             <p>
-              Manage your vehicles and diagnostic information.
+              Manage your vehicles and keep
+              maintenance information updated.
             </p>
+
             <button>
               Manage Vehicles
             </button>
+
           </div>
 
 
 
           <div className="dashboard-card">
+
             <h3>🧾 Invoices</h3>
+
             <p>
-              Access invoices, payments, and receipts.
+              View invoices, payments,
+              and service receipts.
             </p>
+
             <button>
               View Invoices
             </button>
+
           </div>
 
 
@@ -160,8 +162,6 @@ export default function Dashboard({ user }) {
 
       </main>
 
-
     </div>
-
   );
 }
