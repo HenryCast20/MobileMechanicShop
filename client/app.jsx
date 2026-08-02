@@ -90,16 +90,20 @@ export default function App() {
               </form>
             </div>
           </div>
-          <div className="google-login-container">
+       <div className="google-login-container">
         <GoogleLogin
+          theme="filled_blue"
+          size="large"
+          width="300"
+          text="continue_with"
           onSuccess={(credentialResponse) => {
             console.log("Google Login Success:", credentialResponse);
           }}
           onError={() => {
             console.log("Google Login Failed");
-    }}
-  />
-</div>
+          }}
+      />
+      </div>
         </div>
       </main>
 
