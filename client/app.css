@@ -281,80 +281,51 @@ footer {
     border-top: 1px solid #dee2e6;
     transition: background 0.3s ease, color 0.3s ease;
 }
-
 /* ================================
-   CUSTOMER DASHBOARD
+   DASHBOARD FINAL FIX
 ================================ */
 
 
-.dashboard-page {
-    min-height:100vh;
-    color:var(--text-dark);
-}
-
-
-/* HEADER */
+/* Keep header */
 
 .dashboard-header {
-
     position:relative;
-
     display:flex;
-
-    align-items:center;
-
     justify-content:center;
+    align-items:center;
 
     padding:25px 40px;
 
-    background:linear-gradient(135deg, var(--primary-blue), #134074);
+    background:linear-gradient(135deg,var(--primary-blue),#134074);
 
     border-bottom:5px solid var(--accent-red);
-
-    box-shadow:0 4px 12px rgba(0,0,0,.25);
-
 }
 
 
+/* Center Enrique */
+
 .dashboard-brand {
-
     text-align:center;
-
 }
 
 
 .dashboard-brand h1 {
-
     color:white;
-
-    font-size:2.2rem;
-
-    margin:0;
-
 }
 
 
 .dashboard-brand p {
-
     color:#d8e2dc;
-
-    margin-top:5px;
-
 }
 
 
-
-/* RIGHT SIDE BUTTONS */
+/* Right buttons */
 
 .dashboard-actions {
 
     position:absolute;
 
     right:40px;
-
-    top:50%;
-
-    transform:translateY(-50%);
 
     display:flex;
 
@@ -365,21 +336,13 @@ footer {
 }
 
 
-.profile-wrapper {
-
-    position:relative;
-
-}
-
-
-
 .profile-toggle {
 
-    background:transparent;
-
-    border:2px solid var(--accent-red);
+    background:var(--accent-red);
 
     color:white;
+
+    border:none;
 
     padding:12px 20px;
 
@@ -387,15 +350,15 @@ footer {
 
     font-weight:bold;
 
-    cursor:pointer;
-
 }
 
 
 
+/* Logout */
+
 .dashboard-logout {
 
-    background:var(--accent-red);
+    background:#b30321;
 
     color:white;
 
@@ -407,24 +370,16 @@ footer {
 
     font-weight:bold;
 
-    cursor:pointer;
-
 }
 
 
-
-.profile-toggle:hover,
-.dashboard-logout:hover {
-
-    opacity:.85;
-
-}
-
-
-
-/* DROPDOWN */
+/* PROFILE DROPDOWN FIX */
 
 .profile-dropdown {
+
+    background:#ffffff !important;
+
+    color:#212529 !important;
 
     position:absolute;
 
@@ -434,41 +389,30 @@ footer {
 
     width:280px;
 
-    background:var(--card-bg);
-
-    color:var(--text-dark);
-
     padding:25px;
 
     border-radius:12px;
 
     box-shadow:0 10px 30px rgba(0,0,0,.35);
 
-    z-index:100;
-
 }
-
 
 
 .profile-dropdown h3 {
 
-    color:var(--primary-blue);
-
-    margin-bottom:15px;
+    color:#0b2545 !important;
 
 }
-
 
 
 .profile-dropdown p {
 
-    margin-bottom:15px;
+    color:#212529 !important;
 
 }
 
 
-
-/* MAIN AREA */
+/* MAIN DASHBOARD */
 
 .dashboard-container {
 
@@ -476,17 +420,19 @@ footer {
 
     margin:auto;
 
-    padding:35px 25px;
+    padding:30px 20px;
 
 }
 
 
 
-/* WELCOME */
+/* THIS IS ONLY THE WELCOME */
 
 .dashboard-welcome {
 
     text-align:center;
+
+    width:100%;
 
     margin-bottom:40px;
 
@@ -495,24 +441,22 @@ footer {
 
 .dashboard-welcome h2 {
 
-    color:white;
+    color:white !important;
 
-    font-size:2.4rem;
-
-    margin-bottom:10px;
+    font-size:2.3rem;
 
 }
 
 
 .dashboard-welcome p {
 
-    color:#d8e2dc;
+    color:#d8e2dc !important;
 
 }
 
 
 
-/* CARDS */
+/* ONLY THE FOUR BOXES */
 
 .dashboard-grid {
 
@@ -528,11 +472,17 @@ footer {
 
 
 
+/* CARDS */
+
 .dashboard-card {
+
+    width:260px;
 
     height:190px;
 
-    background:var(--card-bg);
+    background:white;
+
+    color:#212529;
 
     border-radius:12px;
 
@@ -542,26 +492,19 @@ footer {
 
     box-shadow:0 10px 25px rgba(0,0,0,.2);
 
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:space-between;
-
 }
-
 
 
 .dashboard-card h3 {
 
-    color:var(--primary-blue);
+    color:#0b2545;
 
 }
 
 
 .dashboard-card p {
 
-    color:var(--text-dark);
+    color:#212529;
 
 }
 
@@ -576,54 +519,8 @@ footer {
 
     border:none;
 
-    padding:11px;
+    padding:10px;
 
     border-radius:6px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-
-@media(max-width:1150px){
-
-    .dashboard-grid {
-
-        grid-template-columns:repeat(2,260px);
-
-    }
-
-}
-
-
-
-@media(max-width:600px){
-
-    .dashboard-header {
-
-        padding:20px;
-
-    }
-
-
-    .dashboard-actions {
-
-        position:static;
-
-        transform:none;
-
-        margin-top:20px;
-
-    }
-
-
-    .dashboard-grid {
-
-        grid-template-columns:1fr;
-
-    }
 
 }
