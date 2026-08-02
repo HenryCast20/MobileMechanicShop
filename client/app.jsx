@@ -13,7 +13,6 @@ export default function App() {
     return <Login setUser={setUser} />;
   }
 
-
-  return <Dashboard user={user} />;
+  return <Dashboard user={user} setUser={setUser} />;
 
 }
