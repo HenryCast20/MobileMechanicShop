@@ -77,11 +77,12 @@ header p {
 /* ===== Brand Header ===== */
 
 .brand-header {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
+    justify-content: center;
     align-items: center;
     min-height: 120px;
     padding: 15px 30px;
+    gap: 15px;
 }
 
 .brand-text {
@@ -91,7 +92,6 @@ header p {
 .header-icon {
     width: 90px;
     height: 90px;
-    justify-self: start;
 }
 @media (max-width: 600px) {
     .header-icon {
