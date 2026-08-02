@@ -281,3 +281,249 @@ footer {
     border-top: 1px solid #dee2e6;
     transition: background 0.3s ease, color 0.3s ease;
 }
+
+/* ================================
+   CUSTOMER DASHBOARD STYLES
+================================ */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #0b0f14;
+  color: white;
+}
+
+
+/* Header */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  background: #111820;
+  border-bottom: 1px solid #293544;
+}
+
+
+.dashboard-header h1 {
+  margin: 0;
+  color: #00d4ff;
+  font-size: 32px;
+}
+
+
+.dashboard-header p {
+  margin: 5px 0 0;
+  color: #9ca9b5;
+}
+
+
+.dashboard-logout {
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.dashboard-logout:hover {
+  background: #ff4d5a;
+}
+
+
+/* Main Layout */
+
+.dashboard-container {
+  padding: 40px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+
+/* Welcome */
+
+.welcome-card {
+  background: linear-gradient(
+    135deg,
+    #151c24,
+    #1d2835
+  );
+
+  border: 1px solid #293544;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.35);
+}
+
+
+.welcome-card h2 {
+  color: #00d4ff;
+  margin-top:0;
+}
+
+
+.welcome-card p {
+  color:#b5c0cc;
+}
+
+
+/* Cards */
+
+.dashboard-grid {
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+
+  gap:25px;
+
+  margin:35px 0;
+
+}
+
+
+.dashboard-card {
+
+  background:#151c24;
+
+  border:1px solid #293544;
+
+  border-radius:16px;
+
+  padding:25px;
+
+  transition:.25s;
+
+}
+
+
+.dashboard-card:hover {
+
+  transform:translateY(-5px);
+
+  border-color:#00d4ff;
+
+}
+
+
+.dashboard-card h3 {
+
+  color:#00d4ff;
+
+  font-size:22px;
+
+}
+
+
+.dashboard-card p {
+
+  color:#b5c0cc;
+
+  line-height:1.6;
+
+  min-height:70px;
+
+}
+
+
+.dashboard-card button {
+
+  background:#0077ff;
+
+  color:white;
+
+  border:none;
+
+  padding:12px 22px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+}
+
+
+.dashboard-card button:hover {
+
+  background:#0099ff;
+
+}
+
+
+
+/* Profile */
+
+.profile-card {
+
+  background:#151c24;
+
+  border:1px solid #293544;
+
+  border-radius:16px;
+
+  padding:30px;
+
+}
+
+
+.profile-card h2 {
+
+  color:#00d4ff;
+
+}
+
+
+.profile-grid {
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(250px,1fr));
+
+  gap:20px;
+
+}
+
+
+.profile-grid p {
+
+  background:#10161d;
+
+  padding:18px;
+
+  border-radius:10px;
+
+  color:#d7e0ea;
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+  .dashboard-header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+    text-align:center;
+
+  }
+
+
+  .dashboard-container{
+
+    padding:20px;
+
+  }
+
+}
