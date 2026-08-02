@@ -337,11 +337,15 @@ footer {
     background: var(--accent-red);
     color: white;
     border: none;
-    padding: 12px 20px;
+    width: 120px;
+    height: 46px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
     transition: background .2s ease, transform .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-toggle:hover,
@@ -473,7 +477,7 @@ footer {
 
 /* MOBILE */
 
-@media (max-width:600px) {
+@media (max-width:900px) {
 
     .dashboard-header {
         flex-direction: column;
