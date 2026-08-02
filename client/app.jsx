@@ -40,6 +40,7 @@ export default function App() {
         <Lottie
           animationData={toolAnimation}
           loop={false}
+          speed={0.5}
         />
       </div>
        
