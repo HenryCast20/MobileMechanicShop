@@ -24,8 +24,8 @@ const loginUser = async (req, res) => {
         c.email
       FROM accounts a
       JOIN customers c ON a.customer_id = c.customer_id
-      WHERE a.username = ?`,
-      [username]
+      WHERE a.username = ? OR c.email = ?`,
+      [username, username]
     );
 
     if (rows.length === 0 || !rows[0].password_hash) {
