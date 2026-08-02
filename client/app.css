@@ -286,29 +286,29 @@ footer {
    DASHBOARD CONTENT
 ================================ */
 
+
 .dashboard-container {
 
     max-width:1300px;
 
-    width:100%;
-
     margin:0 auto;
 
-    padding:30px 40px;
+    padding:20px 40px 60px;
 
 }
 
 
-/* WELCOME TITLE */
+/* Welcome message */
 
 .dashboard-welcome {
 
     text-align:center;
 
-    margin:25px auto 35px;
+    margin-top:35px;
+
+    margin-bottom:70px;
 
 }
-
 
 
 .dashboard-welcome h2 {
@@ -317,47 +317,39 @@ footer {
 
     font-size:2.2rem;
 
-    margin-bottom:8px;
+    margin-bottom:10px;
 
 }
-
 
 
 .dashboard-welcome p {
 
     color:var(--text-dark);
 
-    opacity:.8;
+    font-size:1.1rem;
 
-    font-size:1.05rem;
+    opacity:.85;
 
 }
 
 
 
-
-/* FOUR MAIN BOXES */
+/* Four boxes */
 
 .dashboard-grid {
-
-    width:100%;
 
     display:grid;
 
     grid-template-columns:
-    repeat(4, minmax(220px, 1fr));
+    repeat(4, 1fr);
 
-    gap:25px;
+    gap:30px;
 
-    justify-content:center;
-
-    align-items:stretch;
+    width:100%;
 
 }
 
 
-
-/* RECTANGLE CARDS */
 
 .dashboard-card {
 
@@ -365,15 +357,14 @@ footer {
 
     background:var(--card-bg);
 
-    padding:25px;
-
     border-radius:12px;
+
+    padding:25px;
 
     border-top:5px solid var(--primary-blue);
 
     box-shadow:
     0 10px 25px rgba(0,0,0,.15);
-
 
     display:flex;
 
@@ -394,14 +385,11 @@ footer {
 }
 
 
-
 .dashboard-card p {
 
     color:var(--text-dark);
 
     line-height:1.5;
-
-    margin:10px 0;
 
 }
 
@@ -411,18 +399,43 @@ footer {
 
     width:100%;
 
+    padding:12px;
+
+    border:none;
+
+    border-radius:6px;
+
     background:var(--accent-red);
 
     color:white;
 
-    border:none;
-
-    padding:11px;
-
-    border-radius:6px;
+    font-weight:bold;
 
     cursor:pointer;
 
-    font-weight:bold;
+}
+
+
+
+
+@media(max-width:1100px){
+
+.dashboard-grid {
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+
+
+@media(max-width:600px){
+
+.dashboard-grid {
+
+    grid-template-columns:1fr;
+
+}
 
 }
