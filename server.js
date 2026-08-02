@@ -3,6 +3,7 @@ require('dotenv').config({ path: path.join(process.cwd(), '.env') });
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('./backend/config/db'); // Imports your MySQL pool
+const authRoutes = require('./backend/routes/authRoutes');
 
 const app = express();
 
