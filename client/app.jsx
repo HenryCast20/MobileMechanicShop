@@ -13,9 +13,10 @@ export default function App() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   
-  const [regName, setRegName] = useState('');
-  const [regEmail, setRegEmail] = useState('');
+  const [regFirstName, setRegFirstName] = useState('');
+  const [regLastName, setRegLastName] = useState('');
   const [regUsername, setRegUsername] = useState('');
+  const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   
   const [error, setError] = useState('');
@@ -40,14 +41,20 @@ export default function App() {
 
     try {
       if (formType === 'login') {
-        const data = await loginUser({ email: loginEmail, password: loginPassword });
+        const data = await loginUser({ username: loginEmail, password: loginPassword }); // backend checks 'username' field (which can be email or username)
         console.log('Login Success:', data);
         if (data.token) {
           localStorage.setItem('token', data.token);
         }
         setSuccessMessage('Successfully logged in!');
       } else {
-        const data = await registerUser({ name: regName, email: regEmail, password: regPassword });
+        const data = await registerUser({ 
+          firstName: regFirstName, 
+          lastName: regLastName, 
+          username: regUsername, 
+          email: regEmail, 
+          password: regPassword 
+        });
         console.log('Registration Success:', data);
         setSuccessMessage('Account created successfully! Please sign in.');
         setActiveTab('login');
@@ -105,12 +112,12 @@ export default function App() {
             <div id="login-section" className={`form-section ${activeTab === 'login' ? 'active' : ''}`}>
               <form onSubmit={(e) => handleSubmit(e, 'login')}>
                 <div className="input-group">
-                  <label htmlFor="login-email">Email Address</label>
+                  <label htmlFor="login-email">Username or Email</label>
                   <input 
-                    type="email" 
+                    type="text" 
                     id="login-email" 
                     required 
-                    placeholder="name@example.com" 
+                    placeholder="Enter username or email" 
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                   />
@@ -134,14 +141,36 @@ export default function App() {
             <div id="register-section" className={`form-section ${activeTab === 'register' ? 'active' : ''}`}>
               <form onSubmit={(e) => handleSubmit(e, 'register')}>
                 <div className="input-group">
-                  <label htmlFor="reg-name">Full Name</label>
+                  <label htmlFor="reg-firstname">First Name</label>
                   <input 
                     type="text" 
-                    id="reg-name" 
+                    id="reg-firstname" 
                     required 
-                    placeholder="John Doe" 
-                    value={regName}
-                    onChange={(e) => setRegName(e.target.value)}
+                    placeholder="John" 
+                    value={regFirstName}
+                    onChange={(e) => setRegFirstName(e.target.value)}
+                  />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="reg-lastname">Last Name</label>
+                  <input 
+                    type="text" 
+                    id="reg-lastname" 
+                    required 
+                    placeholder="Doe" 
+                    value={regLastName}
+                    onChange={(e) => setRegLastName(e.target.value)}
+                  />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="reg-username">Username</label>
+                  <input 
+                    type="text" 
+                    id="reg-username" 
+                    required 
+                    placeholder="johndoe123" 
+                    value={regUsername}
+                    onChange={(e) => setRegUsername(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
