@@ -1,5 +1,8 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+// Step up one folder from backend/config to backend, then to project root
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') }); 
+// Or simpler, resolve relative to current process working directory:
+// require('dotenv').config({ path: path.resolve(process.cwd(), '.env') });
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
