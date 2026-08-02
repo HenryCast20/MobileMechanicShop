@@ -128,7 +128,7 @@ const register = async (req, res) => {
 
   try {
     const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const password_hash = await bcrypt.hash(password, salt);
 
     // Insert into customers table first
     const [customerResult] = await db.query(
@@ -140,7 +140,7 @@ const register = async (req, res) => {
     // Insert into accounts table linked to the new customer
     await db.query(
       'INSERT INTO accounts (customer_id, username, password_hash) VALUES (?, ?, ?)',
-      [customerId, username, passwordHash]
+      [customerId, username, password_hash]
     );
 
     return res.status(201).json({ message: 'User registered successfully!' });
