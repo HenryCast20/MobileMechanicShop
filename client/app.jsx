@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import './app.css';
+
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -88,6 +90,16 @@ export default function App() {
               </form>
             </div>
           </div>
+          <div className="google-login-container">
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            console.log("Google Login Success:", credentialResponse);
+          }}
+          onError={() => {
+            console.log("Google Login Failed");
+    }}
+  />
+</div>
         </div>
       </main>
 
