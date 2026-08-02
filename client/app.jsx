@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Dashboard from './pages/dashboard';
 import { GoogleLogin } from '@react-oauth/google';
 import { loginUser, registerUser, googleLogin } from './services/authservice';
 import Lottie from 'lottie-react';
