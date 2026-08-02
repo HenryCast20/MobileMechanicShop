@@ -97,20 +97,21 @@ header p {
     .header-icon {
         display: none;
     }
-      .brand-text {
-        grid-column: 1;
-    }
 
-    .header-icon {
-        display: none;
-    }
-    
     .brand-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         min-height: 100px;
         padding: 15px;
+        text-align: center;
+    }
+
+    .brand-text {
+        width: 100%;
+        text-align: center;
     }
 }
-
 /* Floating Bottom-Right Emoji Theme Toggle */
 #theme-toggle {
     position: fixed;
