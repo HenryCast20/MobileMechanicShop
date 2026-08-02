@@ -1,27 +1,73 @@
-name: Deploy to DigitalOcean
+name: Dadshop
 
+# Triggers on pushes and PRs to the main branch
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  # ==========================================
+  # JOB 1: RUN JEST & SUPERTEST (Optional, if you have tests)
+  # ==========================================
+  test:
+    name: Run Automated Tests
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH into Droplet and Deploy
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x' 
+
+      - name: Install Backend Dependencies
+        run: |
+          npm install
+
+      - name: Run Tests
+        env:
+          PORT: ${{ secrets.PORT }}
+        run: |
+          npm test
+
+  # ==========================================
+  # JOB 2: DEPLOY TO DIGITALOCEAN
+  # ==========================================
+  deploy:
+    name: Deploy to Production
+    needs: test 
+    runs-on: ubuntu-latest
+    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: SSH into Droplet and Run Update Script
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_KEY }}
           script: |
+            export PATH=$PATH:/usr/bin:/usr/local/bin
+            
             cd /root/MobileMechanicShop
             git fetch origin main
             git reset --hard origin/main
+            
+            echo "Updating backend..."
             npm install
+            pm2 restart server || pm2 start server.js --name server
+            
+            echo "Updating frontend..."
             cd client
             npm install
             npm run build
             cd ..
-            pm2 describe server > /dev/null && pm2 restart server || pm2 start server.js --name server
+            
+            pm2 save
