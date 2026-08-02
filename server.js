@@ -1,5 +1,5 @@
-require('dotenv').config({ path: require('path').resolve(__dirname, '.env') });
 const path = require('path');
+require('dotenv').config({ path: require('path').resolve(__dirname, '.env') });
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const db = require('./backend/config/db'); // Imports your MySQL pool
