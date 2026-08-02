@@ -34,10 +34,20 @@ export default function App() {
       </button>
 
       {/* Banner */}
-      <header>
+     <header className="brand-header">
+       
+      <div className="header-icon">
+        <Lottie
+          animationData={toolAnimation}
+          loop={true}
+        />
+      </div>
+       
+      <div className="brand-text">
         <h1>Enrique Mobile Mechanic</h1>
         <p>Professional Repair & Diagnostic Services</p>
-      </header>
+      </div>
+   </header>
 
       {/* Center Terminal */}
       <main>
