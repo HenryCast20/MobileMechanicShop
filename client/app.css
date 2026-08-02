@@ -283,159 +283,203 @@ footer {
 }
 
 /* ================================
-   DASHBOARD CONTENT
+   FINAL DASHBOARD LAYOUT OVERRIDE
 ================================ */
 
 
+/* Main dashboard spacing */
+
 .dashboard-container {
 
-    max-width:1300px;
+    max-width:1200px !important;
 
-    margin:0 auto;
+    width:100% !important;
 
-    padding:20px 40px 60px;
+    margin:0 auto !important;
+
+    padding:25px 30px 60px !important;
 
 }
 
 
-/* Welcome message */
+
+/* Welcome message directly above cards */
 
 .dashboard-welcome {
 
-    text-align:center;
+    width:100% !important;
 
-    margin-top:35px;
+    text-align:center !important;
 
-    margin-bottom:70px;
+    margin:15px auto 35px !important;
 
 }
+
 
 
 .dashboard-welcome h2 {
 
-    color:var(--primary-blue);
+    color:#ffffff !important;
 
-    font-size:2.2rem;
+    font-size:2.2rem !important;
 
-    margin-bottom:10px;
+    margin-bottom:8px !important;
+
+    font-weight:700;
 
 }
+
 
 
 .dashboard-welcome p {
 
-    color:var(--text-dark);
+    color:#d8e2dc !important;
 
-    font-size:1.1rem;
-
-    opacity:.85;
+    font-size:1.05rem !important;
 
 }
 
 
 
-/* Four boxes */
+/* Four cards centered together */
 
 .dashboard-grid {
 
-    display:grid;
+    width:100% !important;
 
-    grid-template-columns:
-    repeat(4, 1fr);
+    display:flex !important;
 
-    gap:30px;
+    justify-content:center !important;
 
-    width:100%;
+    align-items:stretch !important;
+
+    gap:30px !important;
 
 }
 
 
+
+/* Wide rectangle cards */
 
 .dashboard-card {
 
-    height:210px;
+    width:260px !important;
 
-    background:var(--card-bg);
+    height:190px !important;
 
-    border-radius:12px;
+    flex:none !important;
 
-    padding:25px;
+    background:var(--card-bg) !important;
 
-    border-top:5px solid var(--primary-blue);
+    color:var(--text-dark) !important;
+
+    padding:25px !important;
+
+    border-radius:12px !important;
+
+    border-top:5px solid var(--accent-red) !important;
 
     box-shadow:
-    0 10px 25px rgba(0,0,0,.15);
+    0 10px 25px rgba(0,0,0,.25) !important;
 
-    display:flex;
+    display:flex !important;
 
-    flex-direction:column;
+    flex-direction:column !important;
 
-    justify-content:space-between;
+    justify-content:space-between !important;
 
 }
 
 
+
+/* Card titles */
 
 .dashboard-card h3 {
 
-    color:var(--primary-blue);
+    color:var(--primary-blue) !important;
 
-    font-size:1.35rem;
+    font-size:1.3rem !important;
 
 }
 
+
+
+/* Card text */
 
 .dashboard-card p {
 
-    color:var(--text-dark);
+    color:var(--text-dark) !important;
 
-    line-height:1.5;
+    line-height:1.5 !important;
 
 }
 
 
+
+/* Buttons */
 
 .dashboard-card button {
 
-    width:100%;
+    width:100% !important;
 
-    padding:12px;
+    background:var(--accent-red) !important;
 
-    border:none;
+    color:white !important;
 
-    border-radius:6px;
+    border:none !important;
 
-    background:var(--accent-red);
+    padding:11px !important;
 
-    color:white;
+    border-radius:6px !important;
 
-    font-weight:bold;
-
-    cursor:pointer;
+    font-weight:bold !important;
 
 }
 
 
 
+/* Profile dropdown readability */
+
+.profile-dropdown {
+
+    background:var(--card-bg) !important;
+
+    color:var(--text-dark) !important;
+
+}
+
+
+.profile-dropdown p {
+
+    background:var(--light-bg) !important;
+
+    color:var(--text-dark) !important;
+
+}
+
+
+
+/* Responsive */
 
 @media(max-width:1100px){
 
-.dashboard-grid {
+    .dashboard-grid {
 
-    grid-template-columns:repeat(2,1fr);
+        flex-wrap:wrap !important;
+
+    }
 
 }
-
-}
-
 
 
 @media(max-width:600px){
 
-.dashboard-grid {
+    .dashboard-card {
 
-    grid-template-columns:1fr;
+        width:100% !important;
 
-}
+        max-width:300px;
+
+    }
 
 }
