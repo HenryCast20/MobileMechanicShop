@@ -81,6 +81,12 @@ const googleLogin = async (req, res) => {
       family_name: lastName,
     } = payload;
 
+    if (!email) {
+      return res.status(400).json({
+        message: 'Google account email is required.'
+      });
+    }
+
     // First look for an existing Google account
     const [googleAccounts] = await db.query(
       `SELECT
@@ -113,7 +119,7 @@ const googleLogin = async (req, res) => {
 
     } else {
 
-      // No Google account found. Check if the email already exists.
+      // No Google account found. Check if email already exists.
       const [emailAccounts] = await db.query(
         `SELECT
           a.customer_id,
@@ -201,8 +207,7 @@ const googleLogin = async (req, res) => {
     });
   }
 };
-
-// 3. User Registration
+//register a user 
 const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, username, password } = req.body;
 
@@ -212,27 +217,37 @@ const register = async (req, res) => {
     });
   }
 
+  const connection = await db.getConnection();
+
   try {
-    // Check if username already exists
-    const [existingUsername] = await db.query(
+    await connection.beginTransaction();
+
+    // Check username
+    const [existingUsername] = await connection.query(
       'SELECT customer_id FROM accounts WHERE username = ?',
       [username]
     );
 
     if (existingUsername.length > 0) {
+      await connection.rollback();
+      connection.release();
+
       return res.status(409).json({
         message: 'Username already exists.'
       });
     }
 
-    // Check if email already exists (if provided)
+    // Check email
     if (email) {
-      const [existingEmail] = await db.query(
+      const [existingEmail] = await connection.query(
         'SELECT customer_id FROM customers WHERE email = ?',
         [email]
       );
 
       if (existingEmail.length > 0) {
+        await connection.rollback();
+        connection.release();
+
         return res.status(409).json({
           message: 'Email already registered.'
         });
@@ -244,7 +259,7 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, salt);
 
     // Insert customer
-    const [customerResult] = await db.query(
+    const [customerResult] = await connection.query(
       `INSERT INTO customers
       (first_name, last_name, phone_number, email)
       VALUES (?, ?, ?, ?)`,
@@ -259,7 +274,7 @@ const register = async (req, res) => {
     const customerId = customerResult.insertId;
 
     // Insert account
-    await db.query(
+    await connection.query(
       `INSERT INTO accounts
       (customer_id, username, password_hash)
       VALUES (?, ?, ?)`,
@@ -269,6 +284,8 @@ const register = async (req, res) => {
         passwordHash
       ]
     );
+
+    await connection.commit();
 
     return res.status(201).json({
       message: 'User registered successfully!',
@@ -283,10 +300,19 @@ const register = async (req, res) => {
     });
 
   } catch (error) {
+
+    await connection.rollback();
+
     console.error('Registration error:', error);
+
     return res.status(500).json({
       message: 'Server error during registration.'
     });
+
+  } finally {
+
+    connection.release();
+
   }
 };
 
