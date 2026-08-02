@@ -320,7 +320,7 @@ footer {
 
 .dashboard-actions {
     position: absolute;
-    right: 40px;
+    right: 20px;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -477,7 +477,7 @@ footer {
 
 /* MOBILE */
 
-@media (max-width:900px) {
+@media (max-width:1100px) {
 
     .dashboard-header {
         flex-direction: column;
