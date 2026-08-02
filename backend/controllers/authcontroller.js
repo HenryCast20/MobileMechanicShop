@@ -118,7 +118,40 @@ const googleLogin = async (req, res) => {
   }
 };
 
+// 3. User Registration
+const register = async (req, res) => {
+  const { firstName, lastName, phoneNumber, email, username, password } = req.body;
+
+  if (!firstName || !lastName || !username || !password) {
+    return res.status(400).json({ message: 'First name, last name, username, and password are required.' });
+  }
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    // Insert into customers table first
+    const [customerResult] = await db.query(
+      'INSERT INTO customers (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)',
+      [firstName, lastName, phoneNumber || null, email || null]
+    );
+    const customerId = customerResult.insertId;
+
+    // Insert into accounts table linked to the new customer
+    await db.query(
+      'INSERT INTO accounts (customer_id, username, password_hash) VALUES (?, ?, ?)',
+      [customerId, username, passwordHash]
+    );
+
+    return res.status(201).json({ message: 'User registered successfully!' });
+  } catch (error) {
+    console.error('Registration error:', error);
+    return res.status(500).json({ message: 'Server error during registration.' });
+  }
+};
+
 module.exports = {
   loginUser,
   googleLogin,
+  register,
 };
