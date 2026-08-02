@@ -283,227 +283,29 @@ footer {
 }
 
 /* ================================
-   CUSTOMER DASHBOARD
+   DASHBOARD CONTENT
 ================================ */
 
+.dashboard-container {
 
-.dashboard-page {
-    min-height:100vh;
-}
-
-
-
-/* HEADER */
-
-.dashboard-header {
-
-    position:relative;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:30px 45px;
-
-    background:linear-gradient(
-        135deg,
-        var(--primary-blue),
-        #134074
-    );
-
-    color:white;
-
-    border-bottom:5px solid var(--accent-red);
-
-}
-
-
-
-.dashboard-brand {
-
-    text-align:center;
-
-}
-
-
-.dashboard-brand h1 {
-
-    font-size:2.2rem;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-}
-
-
-
-.dashboard-brand p {
-
-    color:#d8e2dc;
-
-}
-
-
-
-/* ACTION BUTTONS */
-
-
-.dashboard-actions {
-
-    position:absolute;
-
-    right:45px;
-
-    display:flex;
-
-    gap:15px;
-
-}
-
-
-
-.profile-wrapper {
-
-    position:relative;
-
-}
-
-
-
-.profile-toggle {
-
-    background:white;
-
-    color:var(--primary-blue);
-
-    border:none;
-
-    padding:12px 22px;
-
-    border-radius:6px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-
-.dashboard-logout {
-
-    background:var(--accent-red);
-
-    color:white;
-
-    border:none;
-
-    padding:12px 25px;
-
-    border-radius:6px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-
-
-/* PROFILE DROPDOWN */
-
-
-.profile-dropdown {
-
-    position:absolute;
-
-    right:0;
-
-    top:55px;
-
-    width:300px;
-
-    background:var(--card-bg);
-
-    color:var(--text-dark);
-
-    padding:25px;
-
-    border-radius:12px;
-
-    border:2px solid var(--input-border);
-
-    border-top:5px solid var(--accent-red);
-
-    box-shadow:
-    0 15px 35px rgba(0,0,0,.35);
-
-    z-index:999;
-
-}
-
-
-
-.profile-dropdown h3 {
-
-    color:var(--primary-blue);
-
-    margin-bottom:20px;
-
-}
-
-
-
-.profile-dropdown p {
-
-    background:var(--light-bg);
-
-    color:var(--text-dark);
-
-    padding:12px;
-
-    border-radius:8px;
-
-    margin-bottom:12px;
-
-}
-
-
-
-.edit-profile-btn {
+    max-width:1300px;
 
     width:100%;
 
-    padding:12px;
+    margin:0 auto;
 
-    border:none;
-
-    border-radius:6px;
-
-    background:var(--primary-blue);
-
-    color:white;
-
-    font-weight:bold;
+    padding:30px 40px;
 
 }
 
 
-
-
-
-/* WELCOME */
-
+/* WELCOME TITLE */
 
 .dashboard-welcome {
 
     text-align:center;
 
-    margin:40px 0;
+    margin:25px auto 35px;
 
 }
 
@@ -513,7 +315,9 @@ footer {
 
     color:var(--primary-blue);
 
-    font-size:2rem;
+    font-size:2.2rem;
+
+    margin-bottom:8px;
 
 }
 
@@ -525,45 +329,43 @@ footer {
 
     opacity:.8;
 
-}
-
-
-
-
-/* CARDS */
-
-
-.dashboard-container {
-
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:20px 30px;
+    font-size:1.05rem;
 
 }
 
 
+
+
+/* FOUR MAIN BOXES */
 
 .dashboard-grid {
 
+    width:100%;
+
     display:grid;
 
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+    repeat(4, minmax(220px, 1fr));
 
-    gap:30px;
+    gap:25px;
+
+    justify-content:center;
+
+    align-items:stretch;
 
 }
 
 
 
+/* RECTANGLE CARDS */
+
 .dashboard-card {
 
-    min-height:260px;
+    height:210px;
 
     background:var(--card-bg);
 
-    padding:30px;
+    padding:25px;
 
     border-radius:12px;
 
@@ -571,6 +373,7 @@ footer {
 
     box-shadow:
     0 10px 25px rgba(0,0,0,.15);
+
 
     display:flex;
 
@@ -586,6 +389,8 @@ footer {
 
     color:var(--primary-blue);
 
+    font-size:1.35rem;
+
 }
 
 
@@ -594,7 +399,9 @@ footer {
 
     color:var(--text-dark);
 
-    line-height:1.6;
+    line-height:1.5;
+
+    margin:10px 0;
 
 }
 
@@ -602,74 +409,20 @@ footer {
 
 .dashboard-card button {
 
+    width:100%;
+
     background:var(--accent-red);
 
     color:white;
 
     border:none;
 
-    padding:12px;
+    padding:11px;
 
     border-radius:6px;
 
     cursor:pointer;
 
     font-weight:bold;
-
-}
-
-
-
-
-@media(max-width:1000px){
-
-.dashboard-grid {
-
-    grid-template-columns:repeat(2,1fr);
-
-}
-
-
-.dashboard-actions {
-
-    right:20px;
-
-}
-
-
-}
-
-
-
-@media(max-width:600px){
-
-.dashboard-header {
-
-    padding:25px;
-
-}
-
-
-.dashboard-actions {
-
-    position:static;
-
-    margin-top:20px;
-
-}
-
-
-.dashboard-header {
-
-    flex-direction:column;
-
-}
-
-
-.dashboard-grid {
-
-    grid-template-columns:1fr;
-
-}
 
 }
