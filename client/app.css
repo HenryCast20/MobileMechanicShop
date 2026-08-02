@@ -91,7 +91,7 @@ header p {
 
 .header-icon {
     position: absolute;
-    right: calc(50% + 150px);
+    right: calc(50% + 220px);
     width: 90px;
     height: 90px;
 }
