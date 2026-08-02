@@ -18,6 +18,7 @@ export default function App() {
   const [regUsername, setRegUsername] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
+  const [regPhoneNumber, setRegPhoneNumber] = useState('');
   
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -51,6 +52,7 @@ export default function App() {
         const data = await registerUser({ 
           firstName: regFirstName, 
           lastName: regLastName, 
+          phoneNumber: regPhoneNumber,
           username: regUsername, 
           email: regEmail, 
           password: regPassword 
@@ -182,6 +184,17 @@ export default function App() {
                     placeholder="name@example.com" 
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
+                  />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="reg-phone">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    id="reg-phone"
+                    required
+                    placeholder="555-123-4567"
+                    value={regPhoneNumber}
+                    onChange={(e) => setRegPhoneNumber(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
