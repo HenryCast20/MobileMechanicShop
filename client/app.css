@@ -72,6 +72,26 @@ header p {
     font-weight: 300;
 }
 
+
+
+/* ===== Brand Header ===== */
+
+.brand-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand-text {
+    text-align: center;
+}
+
+.header-icon {
+    width: 90px;
+    height: 90px;
+}
+
 /* Floating Bottom-Right Emoji Theme Toggle */
 #theme-toggle {
     position: fixed;
