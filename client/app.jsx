@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { loginUser, registerUser } from './authservice';
+import { loginUser, registerUser } from './services/authservice';
 import Lottie from 'lottie-react';
 import toolAnimation from './assets/tool.json';
 import './app.css';
