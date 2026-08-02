@@ -12,7 +12,7 @@ app.use(express.json());
 // API ROUTES
 // ==========================================
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authroutes);
 
 // ==========================================
 // FRONTEND STATIC FILES & CATCH-ALL ROUTE
