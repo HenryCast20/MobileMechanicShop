@@ -92,9 +92,9 @@ export default function App() {
           </div>
        <div className="google-login-container">
         <GoogleLogin
-          theme="filled_blue"
+          theme="outline"
           size="large"
-          width="300"
+          width="250"
           text="continue_with"
           onSuccess={(credentialResponse) => {
             console.log("Google Login Success:", credentialResponse);
@@ -102,7 +102,7 @@ export default function App() {
           onError={() => {
             console.log("Google Login Failed");
           }}
-      />
+        />
       </div>
         </div>
       </main>
