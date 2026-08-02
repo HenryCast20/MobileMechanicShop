@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import Lottie from 'lottie-react';
-import carAnimation from './assets/tool.json';
+import toolAnimation from './assets/tool.json';
 import './app.css';
 
 
