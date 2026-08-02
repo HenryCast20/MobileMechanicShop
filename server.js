@@ -1,7 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(process.cwd(), '.env') });
 const express = require('express');
-const authRoutes = require('./backend/routes/authRoutes');
+const authroutes = require('./backend/routes/authroutes');
 
 const app = express();
 
