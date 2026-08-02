@@ -23,3 +23,21 @@ export const registerUser = async (userData) => {
   if (!response.ok) throw new Error(data.message || 'Registration failed');
   return data;
 };
+
+export const googleLogin = async (token) => {
+  const response = await fetch(`${API_URL}/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Google login failed');
+  }
+
+  return data;
+};
+
+
