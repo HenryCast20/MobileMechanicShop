@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { loginUser, registerUser } from './services/authservice';
+import { loginUser, registerUser, googleLogin } from './services/authservice';
 import Lottie from 'lottie-react';
 import toolAnimation from './assets/tool.json';
 import './app.css';
@@ -213,19 +213,33 @@ export default function App() {
             </div>
           </div>
 
-          <div className="google-login-container">
-            <GoogleLogin
-              theme="outline"
-              size="large"
-              width="250"
-              text="continue_with"
-              onSuccess={(credentialResponse) => {
-                console.log("Google Login Success:", credentialResponse);
-              }}
-              onError={() => {
-                console.log("Google Login Failed");
-              }}
-            />
+         <div className="google-login-container">
+          <GoogleLogin
+            theme="outline"
+            size="large"
+            width="250"
+            text="continue_with"
+            onSuccess={async (credentialResponse) => {
+              try {
+                const data = await googleLogin(credentialResponse.credential);
+        
+                console.log("Google Login Success:", data);
+        
+                localStorage.setItem(
+                  "user",
+                  JSON.stringify(data.user)
+                );
+        
+                setSuccessMessage("Successfully logged in!");
+        
+              } catch (err) {
+                setError(err.message || "Google login failed");
+              }
+            }}
+            onError={() => {
+              setError("Google Login Failed");
+            }}
+          />
           </div>
         </div>
       </main>
