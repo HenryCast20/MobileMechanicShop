@@ -34,7 +34,7 @@ export default function App() {
       {/* Banner */}
       <header>
         <h1>Enrique Mobile Mechanic</h1>
-        <p>Professional Repair & Diagnostic Services test</p>
+        <p>Professional Repair & Diagnostic Services</p>
       </header>
 
       {/* Center Terminal */}
