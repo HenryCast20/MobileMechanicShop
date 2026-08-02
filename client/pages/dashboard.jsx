@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../app.css";
 
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, setUser }){
   const [showProfile, setShowProfile] = useState(false);
-  const navigate = useNavigate();
+
 
   const handleLogout = () => {
-    // Clear saved authentication
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 
-    // Go back to login
-    navigate("/login");
-  };
+  setUser(null);
+};
 
   return (
     <div className="dashboard-page">
