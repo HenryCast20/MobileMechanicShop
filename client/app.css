@@ -215,6 +215,19 @@ body.dark-mode .input-group label {
     transform: scale(0.98);
 }
 
+.google-login-container {
+  margin-top: 25px;
+  padding: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.google-login-container > div {
+  width: auto !important;
+}
+
 /* Footer */
 footer {
     text-align: center;
