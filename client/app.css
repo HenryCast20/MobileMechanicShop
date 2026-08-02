@@ -216,8 +216,8 @@ body.dark-mode .input-group label {
 }
 
 .google-login-container {
-  margin-top: 10px;
-  padding: 8px 0;
+  margin-top: -5px;
+  padding: 20x 0;
   width: 100%;
   display: flex;
   justify-content: center;
