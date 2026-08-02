@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const db = require('./backend/db'); // Imports your MySQL pool
+const db = require('./backend/config/db'); // Imports your MySQL pool
 const app = express();
 
 // Middleware to parse incoming JSON data from React
