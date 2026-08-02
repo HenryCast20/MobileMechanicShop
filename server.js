@@ -1,9 +1,12 @@
+require('dotenv').config(); // MUST BE AT THE VERY TOP
 const path = require('path');
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const db = require('./backend/config/db'); // Imports your MySQL pool
+
 const app = express();
 
-// Middleware to parse incoming JSON data from React
+// Middleware to parse incoming JSON data
 app.use(express.json());
 
 // ==========================================
@@ -11,33 +14,53 @@ app.use(express.json());
 // ==========================================
 
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
+  // Support either 'username' or 'email' from request body
+  const loginInput = req.body.username || req.body.email;
+  const { password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required.' });
+  if (!loginInput || !password) {
+    return res.status(400).json({ message: 'Username/Email and password are required.' });
   }
 
   try {
-    // Query the accounts table for matching email
+    // Query accounts & customers for matching username or email
     const [rows] = await db.query(
-      'SELECT id, email, password FROM accounts WHERE email = ?',
-      [email]
+      `SELECT 
+        a.customer_id, 
+        a.username, 
+        a.password_hash, 
+        c.first_name, 
+        c.last_name, 
+        c.phone_number, 
+        c.email 
+       FROM accounts a
+       JOIN customers c ON a.customer_id = c.customer_id
+       WHERE a.username = ? OR c.email = ?`,
+      [loginInput, loginInput]
     );
 
-    if (rows.length === 0) {
+    if (rows.length === 0 || !rows[0].password_hash) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
     const user = rows[0];
 
-    // Check if plain text password matches database
-    if (user.password !== password) {
+    // Compare entered password with stored bcrypt hash
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+    if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
 
     return res.status(200).json({
       message: 'Login successful!',
-      user: { id: user.id, email: user.email },
+      user: {
+        id: user.customer_id,
+        username: user.username,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        phone: user.phone_number,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.error('Database login error:', error);
@@ -52,10 +75,10 @@ app.post('/api/login', async (req, res) => {
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
