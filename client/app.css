@@ -93,6 +93,23 @@ header p {
     height: 90px;
     justify-self: start;
 }
+@media (max-width: 600px) {
+    .header-icon {
+        display: none;
+    }
+      .brand-text {
+        grid-column: 1;
+    }
+
+    .header-icon {
+        display: none;
+    }
+    
+    .brand-header {
+        min-height: 100px;
+        padding: 15px;
+    }
+}
 
 /* Floating Bottom-Right Emoji Theme Toggle */
 #theme-toggle {
