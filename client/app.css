@@ -77,21 +77,24 @@ header p {
 /* ===== Brand Header ===== */
 
 .brand-header {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    height: 90px;
-    overflow: hidden;
+    min-height: 120px;
+    padding: 20px 0;
 }
 
 .brand-text {
     text-align: center;
+    z-index: 2;
 }
 
 .header-icon {
-    width: 130px;
-    height: 130px;
+    position: absolute;
+    left: 40px;
+    width: 90px;
+    height: 90px;
 }
 
 /* Floating Bottom-Right Emoji Theme Toggle */
