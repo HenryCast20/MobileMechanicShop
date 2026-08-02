@@ -282,16 +282,24 @@ footer {
     transition: background 0.3s ease, color 0.3s ease;
 }
 /* ================================
-   DASHBOARD FINAL FIX
+   CUSTOMER DASHBOARD
 ================================ */
 
+.dashboard-page {
+    min-height:100vh;
+}
 
-/* Keep header */
+
+/* HEADER */
 
 .dashboard-header {
+
     position:relative;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     padding:25px 40px;
@@ -299,27 +307,37 @@ footer {
     background:linear-gradient(135deg,var(--primary-blue),#134074);
 
     border-bottom:5px solid var(--accent-red);
+
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+
 }
 
 
-/* Center Enrique */
-
 .dashboard-brand {
+
     text-align:center;
+
 }
 
 
 .dashboard-brand h1 {
+
     color:white;
+
+    margin:0;
+
 }
 
 
 .dashboard-brand p {
+
     color:#d8e2dc;
+
 }
 
 
-/* Right buttons */
+
+/* RIGHT BUTTONS */
 
 .dashboard-actions {
 
@@ -332,6 +350,13 @@ footer {
     gap:15px;
 
     align-items:center;
+
+}
+
+
+.profile-wrapper {
+
+    position:relative;
 
 }
 
@@ -350,11 +375,10 @@ footer {
 
     font-weight:bold;
 
+    cursor:pointer;
+
 }
 
-
-
-/* Logout */
 
 .dashboard-logout {
 
@@ -370,16 +394,15 @@ footer {
 
     font-weight:bold;
 
+    cursor:pointer;
+
 }
 
 
-/* PROFILE DROPDOWN FIX */
+
+/* PROFILE DROP DOWN */
 
 .profile-dropdown {
-
-    background:#ffffff !important;
-
-    color:#212529 !important;
 
     position:absolute;
 
@@ -389,44 +412,77 @@ footer {
 
     width:280px;
 
+    background:white;
+
+    color:#212529;
+
     padding:25px;
 
     border-radius:12px;
 
     box-shadow:0 10px 30px rgba(0,0,0,.35);
 
+    z-index:100;
+
 }
 
 
 .profile-dropdown h3 {
 
-    color:#0b2545 !important;
+    color:#0b2545;
+
+    margin-bottom:15px;
 
 }
 
 
 .profile-dropdown p {
 
-    color:#212529 !important;
+    color:#212529;
+
+    margin-bottom:15px;
 
 }
 
 
-/* MAIN DASHBOARD */
+
+.edit-profile-btn {
+
+    width:100%;
+
+    background:#0b2545;
+
+    color:white;
+
+    border:none;
+
+    padding:10px;
+
+    border-radius:6px;
+
+}
+
+
+
+/* MAIN AREA */
 
 .dashboard-container {
 
+    display:block;
+
+    width:100%;
+
     max-width:1200px;
 
-    margin:auto;
+    margin:0 auto;
 
-    padding:30px 20px;
+    padding:40px 20px;
 
 }
 
 
 
-/* THIS IS ONLY THE WELCOME */
+/* WELCOME ABOVE CARDS */
 
 .dashboard-welcome {
 
@@ -434,29 +490,31 @@ footer {
 
     width:100%;
 
-    margin-bottom:40px;
+    margin:20px auto 45px;
 
 }
 
 
 .dashboard-welcome h2 {
 
-    color:white !important;
+    color:white;
 
     font-size:2.3rem;
+
+    margin-bottom:10px;
 
 }
 
 
 .dashboard-welcome p {
 
-    color:#d8e2dc !important;
+    color:#d8e2dc;
 
 }
 
 
 
-/* ONLY THE FOUR BOXES */
+/* FOUR CARDS ONLY */
 
 .dashboard-grid {
 
@@ -472,7 +530,7 @@ footer {
 
 
 
-/* CARDS */
+/* CARD STYLE */
 
 .dashboard-card {
 
@@ -491,6 +549,12 @@ footer {
     border-top:5px solid var(--accent-red);
 
     box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
 
 }
 
@@ -519,8 +583,54 @@ footer {
 
     border:none;
 
-    padding:10px;
+    padding:11px;
 
     border-radius:6px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+    .dashboard-grid {
+
+        grid-template-columns:repeat(2,260px);
+
+    }
+
+}
+
+
+
+@media(max-width:600px){
+
+    .dashboard-header {
+
+        padding:20px;
+
+    }
+
+
+    .dashboard-actions {
+
+        position:static;
+
+        margin-top:20px;
+
+    }
+
+
+    .dashboard-grid {
+
+        grid-template-columns:1fr;
+
+    }
 
 }
