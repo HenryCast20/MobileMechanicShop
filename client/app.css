@@ -287,45 +287,99 @@ footer {
 ================================ */
 
 .dashboard-page {
-    min-height: 100vh;
-    color: var(--text-dark);
+    min-height:100vh;
+    color:var(--text-dark);
 }
 
 
-/* Dashboard Header */
+/* ================================
+   HEADER
+================================ */
 
 .dashboard-header {
-    background: linear-gradient(
+
+    background:linear-gradient(
         135deg,
         var(--primary-blue),
         #134074
     );
 
-    color: var(--pure-white);
-    padding: 30px 50px;
+    color:var(--pure-white);
+
+    padding:30px 50px;
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     border-bottom:5px solid var(--accent-red);
 
     box-shadow:
-    0 4px 12px rgba(0,0,0,.25);
+    0 4px 12px rgba(0,0,0,.2);
+
 }
 
 
 .dashboard-header h1 {
+
     font-size:2rem;
+
     text-transform:uppercase;
+
     letter-spacing:1px;
+
 }
 
 
 .dashboard-header p {
-    color:#d8e2dc;
+
     margin-top:5px;
+
+    color:#d8e2dc;
+
 }
+
+
+
+.dashboard-actions {
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+}
+
+
+
+.profile-toggle {
+
+    background:var(--primary-blue);
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.3);
+
+    padding:12px 22px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+.profile-toggle:hover {
+
+    background:#134074;
+
+}
+
 
 
 .dashboard-logout {
@@ -340,11 +394,9 @@ footer {
 
     border-radius:6px;
 
-    font-weight:bold;
-
     cursor:pointer;
 
-    transition:.2s;
+    font-weight:bold;
 
 }
 
@@ -353,19 +405,20 @@ footer {
 
     background:#b30321;
 
-    transform:translateY(-2px);
-
 }
 
 
 
-/* Main Dashboard Area */
+/* ================================
+   MAIN CONTAINER
+================================ */
+
 
 .dashboard-container {
 
-    width:100%;
-
     max-width:1200px;
+
+    width:100%;
 
     margin:auto;
 
@@ -375,7 +428,28 @@ footer {
 
 
 
-/* Welcome Panel */
+/* ================================
+   TOP SECTION
+================================ */
+
+
+.dashboard-top {
+
+    display:grid;
+
+    grid-template-columns:
+    minmax(300px,2fr)
+    minmax(280px,1fr);
+
+    gap:30px;
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* Welcome Box */
 
 .welcome-card {
 
@@ -385,12 +459,10 @@ footer {
 
     padding:35px;
 
-    border-top:4px solid var(--primary-blue);
+    border-top:5px solid var(--primary-blue);
 
     box-shadow:
     0 10px 25px rgba(0,37,69,.15);
-
-    margin-bottom:35px;
 
 }
 
@@ -399,7 +471,7 @@ footer {
 
     color:var(--primary-blue);
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
@@ -413,26 +485,108 @@ body.dark-mode .welcome-card h2 {
 
 .welcome-card p {
 
-    color:var(--text-dark);
+    line-height:1.7;
 
-    opacity:.8;
+    opacity:.85;
 
 }
 
 
 
-/* Dashboard Cards */
+/* ================================
+   PROFILE BOX
+================================ */
+
+
+.profile-card {
+
+    background:var(--card-bg);
+
+    border-radius:12px;
+
+    padding:30px;
+
+    border-top:5px solid var(--accent-red);
+
+    box-shadow:
+    0 10px 25px rgba(0,37,69,.15);
+
+}
+
+
+
+.profile-card h2 {
+
+    color:var(--primary-blue);
+
+    margin-bottom:20px;
+
+}
+
+
+
+body.dark-mode .profile-card h2 {
+
+    color:#64b5f6;
+
+}
+
+
+
+.profile-card p {
+
+    background:var(--light-bg);
+
+    padding:12px;
+
+    border-radius:6px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.profile-card button {
+
+    background:var(--accent-red);
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+.profile-card button:hover {
+
+    background:#b30321;
+
+}
+
+
+
+/* ================================
+   DASHBOARD FEATURE CARDS
+================================ */
+
 
 .dashboard-grid {
 
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fit,minmax(300px,1fr));
+    repeat(4,1fr);
 
-    gap:30px;
-
-    margin-bottom:35px;
+    gap:25px;
 
 }
 
@@ -444,9 +598,9 @@ body.dark-mode .welcome-card h2 {
 
     border-radius:12px;
 
-    padding:30px;
+    padding:30px 25px;
 
-    border-top:4px solid var(--accent-red);
+    border-top:5px solid var(--primary-blue);
 
     box-shadow:
     0 10px 25px rgba(0,37,69,.12);
@@ -462,7 +616,7 @@ body.dark-mode .welcome-card h2 {
     transform:translateY(-5px);
 
     box-shadow:
-    0 15px 30px rgba(0,37,69,.25);
+    0 15px 30px rgba(0,37,69,.2);
 
 }
 
@@ -488,13 +642,13 @@ body.dark-mode .dashboard-card h3 {
 
 .dashboard-card p {
 
-    color:var(--text-dark);
-
-    min-height:70px;
+    min-height:75px;
 
     line-height:1.6;
 
     margin-bottom:20px;
+
+    opacity:.85;
 
 }
 
@@ -502,13 +656,15 @@ body.dark-mode .dashboard-card h3 {
 
 .dashboard-card button {
 
+    width:100%;
+
     background:var(--accent-red);
 
     color:white;
 
     border:none;
 
-    padding:12px 22px;
+    padding:12px;
 
     border-radius:6px;
 
@@ -528,100 +684,68 @@ body.dark-mode .dashboard-card h3 {
 
 
 
-/* Customer Profile */
-
-.profile-card {
-
-    background:var(--card-bg);
-
-    border-radius:12px;
-
-    padding:35px;
-
-    border-top:4px solid var(--primary-blue);
-
-    box-shadow:
-    0 10px 25px rgba(0,37,69,.12);
-
-}
+/* ================================
+   RESPONSIVE
+================================ */
 
 
-
-.profile-card h2 {
-
-    color:var(--primary-blue);
-
-    margin-bottom:25px;
-
-}
+@media(max-width:1000px){
 
 
-
-body.dark-mode .profile-card h2 {
-
-    color:#64b5f6;
-
-}
-
-
-
-.profile-grid {
-
-    display:grid;
+.dashboard-grid {
 
     grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
+    repeat(2,1fr);
+
+}
+
+
+}
+
+
+
+@media(max-width:800px){
+
+
+.dashboard-header {
+
+    flex-direction:column;
+
+    text-align:center;
 
     gap:20px;
 
 }
 
 
+.dashboard-actions {
 
-.profile-grid p {
+    width:100%;
 
-    background:var(--light-bg);
-
-    padding:18px;
-
-    border-radius:8px;
-
-    border-left:4px solid var(--accent-red);
+    justify-content:center;
 
 }
 
 
+.dashboard-top {
 
-/* Mobile */
+    grid-template-columns:1fr;
 
-@media(max-width:700px){
-
-    .dashboard-header {
-
-        flex-direction:column;
-
-        text-align:center;
-
-        gap:20px;
-
-        padding:25px;
-
-    }
+}
 
 
-    .dashboard-container {
+.dashboard-grid {
 
-        padding:20px;
+    grid-template-columns:1fr;
 
-    }
+}
 
 
-    .dashboard-card,
-    .welcome-card,
-    .profile-card {
+.dashboard-container {
 
-        padding:20px;
+    padding:20px;
 
-    }
+}
+
 
 }
