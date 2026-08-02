@@ -226,6 +226,7 @@ body.dark-mode .input-group label {
 
 .google-login-container > div {
   width: auto !important;
+  transform: translateY(-10px);
 }
 
 /* Footer */
