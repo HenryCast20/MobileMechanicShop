@@ -14,17 +14,17 @@ const loginUser = async (req, res) => {
 
   try {
     const [rows] = await db.query(
-      `SELECT 
-        a.customer_id, 
-        a.username, 
-        a.password_hash, 
-        c.first_name, 
-        c.last_name, 
-        c.phone_number, 
-        c.email 
-       FROM accounts a
-       JOIN customers c ON a.customer_id = c.customer_id
-       WHERE a.username = ?`,
+      `SELECT
+        a.customer_id,
+        a.username,
+        a.password_hash,
+        c.first_name,
+        c.last_name,
+        c.phone_number,
+        c.email
+      FROM accounts a
+      JOIN customers c ON a.customer_id = c.customer_id
+      WHERE a.username = ?`,
       [username]
     );
 
@@ -35,6 +35,7 @@ const loginUser = async (req, res) => {
     const user = rows[0];
 
     const isMatch = await bcrypt.compare(password, user.password_hash);
+
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
@@ -47,9 +48,10 @@ const loginUser = async (req, res) => {
         firstName: user.first_name,
         lastName: user.last_name,
         phone: user.phone_number,
-        email: user.email,
-      },
+        email: user.email
+      }
     });
+
   } catch (error) {
     console.error('Database login error:', error);
     return res.status(500).json({ message: 'Internal server error.' });
@@ -71,50 +73,132 @@ const googleLogin = async (req, res) => {
     });
 
     const payload = ticket.getPayload();
-    const { sub: googleId, email, given_name: firstName, family_name: lastName } = payload;
 
-    const [existingAccounts] = await db.query(
-      `SELECT a.customer_id, a.username, c.first_name, c.last_name, c.phone_number, c.email 
-       FROM accounts a
-       JOIN customers c ON a.customer_id = c.customer_id
-       WHERE a.google_id = ?`,
+    const {
+      sub: googleId,
+      email,
+      given_name: firstName,
+      family_name: lastName,
+    } = payload;
+
+    // First look for an existing Google account
+    const [googleAccounts] = await db.query(
+      `SELECT
+        a.customer_id,
+        a.username,
+        c.first_name,
+        c.last_name,
+        c.phone_number,
+        c.email
+      FROM accounts a
+      JOIN customers c ON a.customer_id = c.customer_id
+      WHERE a.google_id = ?`,
       [googleId]
     );
 
     let user;
 
-    if (existingAccounts.length > 0) {
-      user = existingAccounts[0];
-    } else {
-      const [customerResult] = await db.query(
-        `INSERT INTO customers (first_name, last_name, email) VALUES (?, ?, ?)`,
-        [firstName || 'Google', lastName || 'User', email]
-      );
+    if (googleAccounts.length > 0) {
 
-      const customerId = customerResult.insertId;
-
-      await db.query(
-        `INSERT INTO accounts (customer_id, username, google_id) VALUES (?, ?, ?)`,
-        [customerId, email, googleId]
-      );
+      const account = googleAccounts[0];
 
       user = {
-        id: customerId,
-        username: email,
-        firstName,
-        lastName,
-        phone: null,
-        email,
+        id: account.customer_id,
+        username: account.username,
+        firstName: account.first_name,
+        lastName: account.last_name,
+        phone: account.phone_number,
+        email: account.email
       };
+
+    } else {
+
+      // No Google account found. Check if the email already exists.
+      const [emailAccounts] = await db.query(
+        `SELECT
+          a.customer_id,
+          a.username,
+          c.first_name,
+          c.last_name,
+          c.phone_number,
+          c.email
+        FROM accounts a
+        JOIN customers c ON a.customer_id = c.customer_id
+        WHERE c.email = ?`,
+        [email]
+      );
+
+      if (emailAccounts.length > 0) {
+
+        const account = emailAccounts[0];
+
+        // Link Google account to existing account
+        await db.query(
+          `UPDATE accounts
+          SET google_id = ?
+          WHERE customer_id = ?`,
+          [googleId, account.customer_id]
+        );
+
+        user = {
+          id: account.customer_id,
+          username: account.username,
+          firstName: account.first_name,
+          lastName: account.last_name,
+          phone: account.phone_number,
+          email: account.email
+        };
+
+      } else {
+
+        // Create a new customer
+        const [customerResult] = await db.query(
+          `INSERT INTO customers
+          (first_name, last_name, email)
+          VALUES (?, ?, ?)`,
+          [
+            firstName || 'Google',
+            lastName || 'User',
+            email
+          ]
+        );
+
+        const customerId = customerResult.insertId;
+
+        // Create account
+        await db.query(
+          `INSERT INTO accounts
+          (customer_id, username, password_hash, google_id)
+          VALUES (?, ?, NULL, ?)`,
+          [
+            customerId,
+            email,
+            googleId
+          ]
+        );
+
+        user = {
+          id: customerId,
+          username: email,
+          firstName: firstName || 'Google',
+          lastName: lastName || 'User',
+          phone: null,
+          email
+        };
+
+      }
     }
 
     return res.status(200).json({
       message: 'Google login successful!',
-      user,
+      user
     });
+
   } catch (error) {
     console.error('Google OAuth error:', error);
-    return res.status(401).json({ message: 'Google authentication failed.' });
+    return res.status(401).json({
+      message: 'Google authentication failed.'
+    });
   }
 };
 
@@ -123,30 +207,86 @@ const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, username, password } = req.body;
 
   if (!firstName || !lastName || !username || !password) {
-    return res.status(400).json({ message: 'First name, last name, username, and password are required.' });
+    return res.status(400).json({
+      message: 'First name, last name, username, and password are required.'
+    });
   }
 
   try {
-    const salt = await bcrypt.genSalt(10);
-    const password_hash = await bcrypt.hash(password, salt);
-
-    // Insert into customers table first
-    const [customerResult] = await db.query(
-      'INSERT INTO customers (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)',
-      [firstName, lastName, phoneNumber || null, email || null]
+    // Check if username already exists
+    const [existingUsername] = await db.query(
+      'SELECT customer_id FROM accounts WHERE username = ?',
+      [username]
     );
+
+    if (existingUsername.length > 0) {
+      return res.status(409).json({
+        message: 'Username already exists.'
+      });
+    }
+
+    // Check if email already exists (if provided)
+    if (email) {
+      const [existingEmail] = await db.query(
+        'SELECT customer_id FROM customers WHERE email = ?',
+        [email]
+      );
+
+      if (existingEmail.length > 0) {
+        return res.status(409).json({
+          message: 'Email already registered.'
+        });
+      }
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    // Insert customer
+    const [customerResult] = await db.query(
+      `INSERT INTO customers
+      (first_name, last_name, phone_number, email)
+      VALUES (?, ?, ?, ?)`,
+      [
+        firstName,
+        lastName,
+        phoneNumber || null,
+        email || null
+      ]
+    );
+
     const customerId = customerResult.insertId;
 
-    // Insert into accounts table linked to the new customer
+    // Insert account
     await db.query(
-      'INSERT INTO accounts (customer_id, username, password_hash) VALUES (?, ?, ?)',
-      [customerId, username, password_hash]
+      `INSERT INTO accounts
+      (customer_id, username, password_hash)
+      VALUES (?, ?, ?)`,
+      [
+        customerId,
+        username,
+        passwordHash
+      ]
     );
 
-    return res.status(201).json({ message: 'User registered successfully!' });
+    return res.status(201).json({
+      message: 'User registered successfully!',
+      user: {
+        id: customerId,
+        username,
+        firstName,
+        lastName,
+        phone: phoneNumber || null,
+        email: email || null
+      }
+    });
+
   } catch (error) {
     console.error('Registration error:', error);
-    return res.status(500).json({ message: 'Server error during registration.' });
+    return res.status(500).json({
+      message: 'Server error during registration.'
+    });
   }
 };
 
