@@ -123,7 +123,7 @@ export default function Login({ setUser }) {
         <div className="brand-text">
 
           <h1>
-            Enrique Mobile Mechanic
+            Enrique Auto Mechanic
           </h1>
 
           <p>
