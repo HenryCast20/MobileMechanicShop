@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -33,15 +34,17 @@ const loginUser = async (req, res) => {
     }
 
     const user = rows[0];
-
+  
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
+    const token = jwt.sign({ id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     return res.status(200).json({
       message: 'Login successful!',
+      token: token,
       user: {
         id: user.customer_id,
         username: user.username,
@@ -194,9 +197,11 @@ const googleLogin = async (req, res) => {
 
       }
     }
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     return res.status(200).json({
       message: 'Google login successful!',
+      token: token,
       user
     });
 
