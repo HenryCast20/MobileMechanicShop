@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../app.css";
 
-export default function Dashboard({ user, setUser }){
+export default function Dashboard({ user, setUser ,setCurrentView}){
   const [showProfile, setShowProfile] = useState(false);
 
 
