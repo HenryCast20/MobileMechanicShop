@@ -25,6 +25,7 @@ year_produced int,
 make varchar(255),
 model varchar(255),
 odometer int,
+license_plate varchar(20),
 vin varchar(17) unique,
 foreign key (customer_id) references customers(customer_id) on delete cascade
 );
