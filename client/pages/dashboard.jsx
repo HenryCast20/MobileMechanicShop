@@ -102,10 +102,10 @@ export default function Dashboard({ user, setUser }){
           </div>
 
           <div className="dashboard-card">
-            <h3>🚗 My Vehicles</h3>
-            <p>Manage your vehicles and maintenance records.</p>
-            <button>Manage Vehicles</button>
-          </div>
+          <h3>🚗 My Vehicles</h3>
+          <p>Manage your vehicles and maintenance records.</p>
+          <button onClick={() => setCurrentView("myVehicles")}>Manage Vehicles</button>
+        </div>
 
           <div className="dashboard-card">
             <h3>🧾 Invoices</h3>
