@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
-    const token = jwt.sign({ id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ customer_id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     return res.status(200).json({
       message: 'Login successful!',
@@ -197,7 +197,7 @@ const googleLogin = async (req, res) => {
 
       }
     }
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+   const token = jwt.sign({ customer_id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
     return res.status(200).json({
       message: 'Google login successful!',
