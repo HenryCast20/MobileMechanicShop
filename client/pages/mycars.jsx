@@ -145,9 +145,18 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
 
       <main className="dashboard-container">
         <div className="vehicles-header-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-          <div>
-            <h2>My Vehicles</h2>
-            <p>Manage your registered vehicles and maintenance records.</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <button 
+              className="action-btn" 
+              style={{ width: "auto", padding: "8px 15px", background: "#6c757d" }} 
+              onClick={() => setCurrentView("dashboard")}
+            >
+              ← Back
+            </button>
+            <div>
+              <h2>My Vehicles</h2>
+              <p>Manage your registered vehicles and maintenance records.</p>
+            </div>
           </div>
           <button
             className="action-btn"
