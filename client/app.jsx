@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "./pages/login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard";
 import MyVehicles from "./pages/mycars";
 
 export default function App() {
