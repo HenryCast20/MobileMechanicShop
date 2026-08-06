@@ -54,10 +54,9 @@ export default function Login({ setUser }) {
         console.log('Login Success:', data);
 
 
-        localStorage.setItem(
-          "user",
-          JSON.stringify(data.user)
-        );
+        // Save token and user separately so API calls can find them
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
 
         setUser(data.user);
@@ -391,10 +390,8 @@ export default function Login({ setUser }) {
                   );
 
 
-                  localStorage.setItem(
-                    "user",
-                    JSON.stringify(data.user)
-                  );
+                 localStorage.setItem("token", data.token);
+                 localStorage.setItem("user", JSON.stringify(data.user));
 
 
                   setUser(data.user);
