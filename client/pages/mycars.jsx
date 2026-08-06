@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../app.css";
 
-export default function MyVehicles({ user, setUser }) {
+export default function MyVehicles({ user, setUser, setCurrentView }) {
   const [showProfile, setShowProfile] = useState(false);
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
