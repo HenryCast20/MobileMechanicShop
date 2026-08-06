@@ -32,4 +32,4 @@ const getCars = async (req, res) => {
       };
 
 
-module.exports = { getVehicles, addVehicle };
+module.exports = { getCars, addCar };
