@@ -2,7 +2,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(process.cwd(), '.env') });
 const express = require('express');
 const authroutes = require('./backend/routes/authroutes');
-
+const vehicleRoutes = require('./backend/routes/vehicleRoutes');
 const app = express();
 
 // Middleware to parse incoming JSON data
@@ -13,7 +13,7 @@ app.use(express.json());
 // ==========================================
 
 app.use('/api/auth', authroutes);
-
+app.use('/api/vehicles', vehicleRoutes);
 // ==========================================
 // FRONTEND STATIC FILES & CATCH-ALL ROUTE
 // ==========================================
