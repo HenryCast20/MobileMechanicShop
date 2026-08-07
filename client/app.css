@@ -598,20 +598,22 @@ body.dark-mode .modal-backdrop h3 {
 ================================ */
 
 .invoice-container {
-    max-width: 550px;
+    max-width: 580px;
     margin: 40px auto;
-    padding: 30px;
+    padding: 35px;
     background: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 37, 69, 0.12);
     border-top: 4px solid var(--primary-blue);
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .invoice-container h3 {
     color: var(--primary-blue);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
@@ -653,11 +655,12 @@ body.dark-mode .invoice-input-group label {
     outline: none;
     background: var(--card-bg);
     color: var(--text-dark);
-    transition: border-color 0.2s, background 0.3s, color 0.3s;
+    transition: border-color 0.2s, background 0.3s, color 0.3s, box-shadow 0.2s;
 }
 
 .invoice-input-group input:focus {
     border-color: var(--accent-red);
+    box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.12);
 }
 
 .invoice-submit-btn {
@@ -671,16 +674,23 @@ body.dark-mode .invoice-input-group label {
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(217, 4, 41, 0.2);
 }
 
 .invoice-submit-btn:hover {
     background-color: #b30321;
+    box-shadow: 0 6px 15px rgba(217, 4, 41, 0.3);
+}
+
+.invoice-submit-btn:active {
+    transform: scale(0.98);
 }
 
 .invoice-submit-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 /* Results Section */
@@ -700,14 +710,19 @@ body.dark-mode .invoice-input-group label {
 
 /* Individual Invoice Cards */
 .invoice-card {
-    padding: 18px;
+    padding: 20px;
     border-radius: 8px;
     border: 1px solid var(--input-border);
     background: var(--card-bg);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.invoice-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 37, 69, 0.08);
 }
 
 .invoice-card.unpaid {
@@ -722,16 +737,30 @@ body.dark-mode .invoice-input-group label {
     margin: 0;
     color: var(--text-dark);
     font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+/* Status Badges */
 .invoice-status-paid {
+    background-color: rgba(16, 185, 129, 0.12);
     color: #10b981;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .invoice-status-unpaid {
+    background-color: rgba(217, 4, 41, 0.12);
     color: var(--accent-red);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 /* Pay Online Button */
@@ -748,9 +777,11 @@ body.dark-mode .invoice-input-group label {
     font-weight: bold;
     font-size: 0.9rem;
     text-transform: uppercase;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(217, 4, 41, 0.2);
 }
 
 .invoice-pay-btn:hover {
     background-color: #b30321;
+    box-shadow: 0 6px 14px rgba(217, 4, 41, 0.3);
 }
