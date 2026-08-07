@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 
 // 2. Google OAuth Handler
 const googleLogin = async (req, res) => {
-  const { token } = req.body;
+  const { token: googleToken } = req.body;
 
   if (!token) {
     return res.status(400).json({ message: 'Google token is required.' });
@@ -80,7 +80,7 @@ const googleLogin = async (req, res) => {
 
   try {
     const ticket = await googleClient.verifyIdToken({
-      idToken: token,
+      idToken: googleToken,,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
