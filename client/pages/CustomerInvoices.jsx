@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./CustomerInvoices.css"; 
+import "../app.css";
 
 export default function CustomerInvoices() {
   const [email, setEmail] = useState("");
