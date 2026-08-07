@@ -32,8 +32,16 @@ export default function Login({ setUser }) {
 
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const newMode = !isDarkMode;
+  setIsDarkMode(newMode);
+  if (newMode) {
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+  }
+};
 
 
   const handleSubmit = async (e, formType) => {
