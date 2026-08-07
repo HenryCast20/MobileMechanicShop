@@ -6,11 +6,13 @@ import CustomerInvoices from "./pages/CustomerInvoices";
 
 
 export default function App() {
-  useEffect(() => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-  }
+useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
   }, []);
   
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
