@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../app.css";
 
-export default function CustomerInvoices({ setCurrentView }) {
+export default function CustomerInvoices({ user, setUser, setCurrentView }) {
   const [email, setEmail] = useState("");
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
