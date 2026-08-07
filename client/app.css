@@ -59,6 +59,12 @@ header {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+header,
+.dashboard-header,
+.brand-header {
+    background: linear-gradient(135deg, #0b2545, #134074) !important;
+}
+
 header h1 {
     font-size: 2.2rem;
     letter-spacing: 1px;
