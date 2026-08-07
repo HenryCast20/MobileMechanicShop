@@ -42,9 +42,18 @@ const loginUser = async (req, res) => {
     }
     const token = jwt.sign({ customer_id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
+    
+    res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // true over HTTPS in production
+    sameSite: 'strict',
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
+
+    
     return res.status(200).json({
       message: 'Login successful!',
-      token: token,
       user: {
         id: user.customer_id,
         username: user.username,
@@ -199,9 +208,15 @@ const googleLogin = async (req, res) => {
     }
    const token = jwt.sign({ customer_id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
     return res.status(200).json({
       message: 'Google login successful!',
-      token: token,
       user
     });
 
@@ -212,6 +227,8 @@ const googleLogin = async (req, res) => {
     });
   }
 };
+
+
 //register a user 
 const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, username, password } = req.body;
@@ -291,7 +308,17 @@ const register = async (req, res) => {
     );
 
     await connection.commit();
+    
+    const token = jwt.sign({ customer_id: customerId }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    
+    res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
 
+    
     return res.status(201).json({
       message: 'User registered successfully!',
       user: {
