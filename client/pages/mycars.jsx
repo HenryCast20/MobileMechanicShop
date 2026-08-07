@@ -194,7 +194,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             {vehicles.map((car) => (
               <div className="dashboard-card" key={car.id || car.vehicle_id}>
                 <h3>🚗 {car.make} {car.model}</h3>
-                <p><strong>Year:</strong> {car.year}</p>
+                <p><strong>Year:</strong> {car.year_produced}</p>
                 <p><strong>License Plate:</strong> {car.license_plate || car.licensePlate || "Not Provided"}</p>
                 <p><strong>Odometer:</strong> {car.odometer ? `${car.odometer.toLocaleString()} mi` : "Not Provided"}</p>
                 <p><strong>VIN:</strong> {car.vin || "Not Provided"}</p>
