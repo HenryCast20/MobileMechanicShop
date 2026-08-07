@@ -74,7 +74,7 @@ const loginUser = async (req, res) => {
 const googleLogin = async (req, res) => {
   const { token: googleToken } = req.body;
 
-  if (!token) {
+  if (!googleToken) {
     return res.status(400).json({ message: 'Google token is required.' });
   }
 
@@ -117,9 +117,7 @@ const googleLogin = async (req, res) => {
     let user;
 
     if (googleAccounts.length > 0) {
-
       const account = googleAccounts[0];
-
       user = {
         id: account.customer_id,
         username: account.username,
@@ -128,9 +126,7 @@ const googleLogin = async (req, res) => {
         phone: account.phone_number,
         email: account.email
       };
-
     } else {
-
       // No Google account found. Check if email already exists.
       const [emailAccounts] = await db.query(
         `SELECT
@@ -147,7 +143,6 @@ const googleLogin = async (req, res) => {
       );
 
       if (emailAccounts.length > 0) {
-
         const account = emailAccounts[0];
 
         // Link Google account to existing account
@@ -166,9 +161,7 @@ const googleLogin = async (req, res) => {
           phone: account.phone_number,
           email: account.email
         };
-
       } else {
-
         // Create a new customer
         const [customerResult] = await db.query(
           `INSERT INTO customers
@@ -203,16 +196,17 @@ const googleLogin = async (req, res) => {
           phone: null,
           email
         };
-
       }
     }
-   const token = jwt.sign({ customer_id: user.customer_id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
+    // Generate JWT token using user.id once user is established
+    const token = jwt.sign({ customer_id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
     return res.status(200).json({
