@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import MyVehicles from "./pages/mycars";
 import CustomerInvoices from "./pages/CustomerInvoices";
 
+
 export default function App() {
+  useEffect(() => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  }, []);
+  
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [currentView, setCurrentView] = useState("dashboard"); // tracks active page
 
