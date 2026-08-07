@@ -3,6 +3,7 @@ import "../app.css";
 
 export default function Dashboard({ user, setUser ,setCurrentView}){
   const [showProfile, setShowProfile] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(document.body.classList.contains("dark-mode"));
   
   const handleLogout = () => {
   localStorage.removeItem("user");
