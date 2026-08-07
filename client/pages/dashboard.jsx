@@ -9,11 +9,20 @@ export default function Dashboard({ user, setUser ,setCurrentView}){
   setUser(null);
 };
 
+  const toggleTheme = () => {
+    const isDark = document.body.classList.toggle("dark-mode");
+    setIsDarkMode(isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  };
+
   return (
-    <div className="dashboard-page">
-
+  <div className="dashboard-page">
+      {/* Floating Bottom-Right Theme Toggle Button */}
+      <button id="theme-toggle" onClick={toggleTheme}>
+        {isDarkMode ? "☀️" : "🌙"}
+      </button>
+      
       <header className="dashboard-header">
-
         <div className="dashboard-brand">
           <h1>Enrique Mobile Mechanic</h1>
           <p>Professional Repair & Diagnostic Services</p>
