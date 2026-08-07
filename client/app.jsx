@@ -16,7 +16,7 @@ export default function App() {
   if (currentView === "myVehicles") {
     return <MyVehicles user={user} setUser={setUser} setCurrentView={setCurrentView} />;
   }
-  if (currentView === "myInvoices") {
+  if (currentView === "CustomerInvoices") {
     return <CustomerInvoices user={user} setUser={setUser} setCurrentView={setCurrentView} />;
   }
 
