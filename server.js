@@ -3,10 +3,12 @@ require('dotenv').config({ path: path.join(process.cwd(), '.env') });
 const express = require('express');
 const authroutes = require('./backend/routes/authroutes');
 const vehicleRoutes = require('./backend/routes/vehicleRoutes');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 // Middleware to parse incoming JSON data
 app.use(express.json());
+app.use(cookieParser())
 
 // ==========================================
 // API ROUTES
