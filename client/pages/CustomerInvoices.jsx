@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "../app.css";
 
 export default function CustomerInvoices({ user, setUser, setCurrentView }) {
@@ -7,17 +6,33 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLookup = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
-      const response = await axios.post("/api/customer-invoices", { email });
-      setInvoices(response.data.invoices);
+      const response = await fetch("/api/customer-invoices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ email })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch invoices.");
+      }
+
+      const data = await response.json();
+      // Handle whether backend returns an array directly or nested in an object
+      setInvoices(Array.isArray(data) ? data : data.invoices || []);
       setSearched(true);
     } catch (err) {
       console.error(err);
-      alert("Error fetching invoices");
+      setError("Error fetching invoices");
     } finally {
       setLoading(false);
     }
@@ -49,8 +64,10 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
           </button>
         </form>
 
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
         {searched && (
-          <div className="invoice-results">
+          <div className="invoice-results" style={{ marginTop: "20px" }}>
             {invoices.length === 0 ? (
               <p>No invoices found for this email address.</p>
             ) : (
@@ -59,7 +76,7 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
                 const isPaid = inv.status === "PAID";
 
                 return (
-                  <div key={inv.id} className={`invoice-card ${isPaid ? "paid" : "unpaid"}`}>
+                  <div key={inv.id || inv.invoiceNumber} className={`invoice-card ${isPaid ? "paid" : "unpaid"}`} style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "10px", borderRadius: "6px" }}>
                     <p><strong>Invoice #:</strong> {inv.invoiceNumber || "Draft"}</p>
                     <p><strong>Status:</strong> {inv.status}</p>
                     <p><strong>Total:</strong> ${(amountDue / 100).toFixed(2)}</p>
