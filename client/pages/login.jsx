@@ -215,36 +215,38 @@ export default function Login({ setUser }) {
                 <form onSubmit={(e)=>handleSubmit(e,'login')}>
 
                   <div className="input-group">
-
+                
                     <label>
                       Username or Email
                     </label>
-
+                
                     <input
                       type="text"
                       required
+                      autoComplete="username"
                       placeholder="Enter username or email"
                       value={loginEmail}
                       onChange={(e)=>setLoginEmail(e.target.value)}
                     />
-
+                
                   </div>
-
-
+                
+                
                   <div className="input-group">
-
+                
                     <label>
                       Password
                     </label>
-
+                
                     <input
                       type="password"
                       required
+                      autoComplete="current-password"
                       placeholder="••••••••"
                       value={loginPassword}
                       onChange={(e)=>setLoginPassword(e.target.value)}
                     />
-
+                
                   </div>
 
 
@@ -274,79 +276,35 @@ export default function Login({ setUser }) {
 
 
 
-                  <div className="input-group">
-                    <label>First Name</label>
-
-                    <input
-                      required
-                      value={regFirstName}
-                      onChange={(e)=>setRegFirstName(e.target.value)}
-                    />
-                  </div>
-
-
-
-                  <div className="input-group">
-                    <label>Last Name</label>
-
-                    <input
-                      required
-                      value={regLastName}
-                      onChange={(e)=>setRegLastName(e.target.value)}
-                    />
-                  </div>
-
-
-
-                  <div className="input-group">
-                    <label>Username</label>
-
-                    <input
-                      required
-                      value={regUsername}
-                      onChange={(e)=>setRegUsername(e.target.value)}
-                    />
-                  </div>
-
-
-
-                  <div className="input-group">
-                    <label>Email Address</label>
-
-                    <input
-                      type="email"
-                      required
-                      value={regEmail}
-                      onChange={(e)=>setRegEmail(e.target.value)}
-                    />
-                  </div>
-
-
-
-                  <div className="input-group">
-                    <label>Phone Number</label>
-
-                    <input
-                      type="tel"
-                      required
-                      value={regPhoneNumber}
-                      onChange={(e)=>setRegPhoneNumber(e.target.value)}
-                    />
-                  </div>
-
-
-
-                  <div className="input-group">
-                    <label>Password</label>
-
-                    <input
-                      type="password"
-                      required
-                      value={regPassword}
-                      onChange={(e)=>setRegPassword(e.target.value)}
-                    />
-                  </div>
-
+                 <div className="input-group">
+                  <label>First Name</label>
+                  <input required autoComplete="off" value={regFirstName} onChange={(e) => setRegFirstName(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                  <label>Last Name</label>
+                  <input required autoComplete="off" value={regLastName} onChange={(e) => setRegLastName(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                  <label>Username</label>
+                  <input required autoComplete="username" value={regUsername} onChange={(e) => setRegUsername(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                  <label>Email Address</label>
+                  <input type="email" required autoComplete="email" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                  <label>Phone Number</label>
+                  <input type="tel" required autoComplete="tel" value={regPhoneNumber} onChange={(e) => setRegPhoneNumber(e.target.value)} />
+                </div>
+                
+                <div className="input-group">
+                  <label>Password</label>
+                  <input type="password" required autoComplete="new-password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} />
+                </div>
 
 
                   <button
