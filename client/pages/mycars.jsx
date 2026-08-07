@@ -19,13 +19,11 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
   const fetchVehicles = async (query = "") => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
+ 
       const url = query ? `/api/vehicles?search=${encodeURIComponent(query)}` : "/api/vehicles";
       
       const response = await fetch(url, {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+        credentials: "include"
       });
 
       if (!response.ok) {
@@ -55,13 +53,13 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
   const handleAddVehicle = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/vehicles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
+
+       const response = await fetch("/api/vehicles", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        credentials: "include",
         body: JSON.stringify({ 
           make, 
           model, 
@@ -89,11 +87,10 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
-  };
+    const handleLogout = () => {
+      localStorage.removeItem("user");
+      setUser(null);
+    };
 
   return (
     <div className="dashboard-page">
