@@ -110,9 +110,7 @@ export default function Dashboard({ user, setUser ,setCurrentView}){
           <div className="dashboard-card">
             <h3>🧾 Invoices</h3>
             <p>View invoices, payments, and receipts.</p>
-            <button type="button" onClick={() => setCurrentView("CustomerInvoices")}>
-              View Invoices
-            </button>
+            <button onClick={() => setCurrentView("CustomerInvoices")}>View Invoices</button>
           </div>
 
         </section>
