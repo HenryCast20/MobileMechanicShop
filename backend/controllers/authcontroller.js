@@ -80,7 +80,7 @@ const googleLogin = async (req, res) => {
 
   try {
     const ticket = await googleClient.verifyIdToken({
-      idToken: googleToken,,
+      idToken: googleToken,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
