@@ -8,11 +8,6 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [amount, setAmount] = useState("");
-  const [description, setDescription] = useState("");
-
   const fetchInvoices = async (query = "") => {
     try {
       setLoading(true);
@@ -44,36 +39,6 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
     const val = e.target.value;
     setSearchTerm(val);
     fetchInvoices(val);
-  };
-
-  const handleAddInvoice = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/invoices", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify({ 
-          invoice_number: invoiceNumber, 
-          amount: amount ? Number(amount) : null, 
-          description 
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to add invoice.");
-      }
-
-      setInvoiceNumber("");
-      setAmount("");
-      setDescription("");
-      setShowAddModal(false);
-      fetchInvoices(searchTerm);
-    } catch (err) {
-      setError(err.message || "Error adding invoice.");
-    }
   };
 
   const handleLogout = () => {
@@ -141,16 +106,9 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
             </button>
             <div>
               <h2>Customer Invoices</h2>
-              <p>View, manage, and settle your service invoices.</p>
+              <p>View and settle your service invoices synced from Square.</p>
             </div>
           </div>
-          <button
-            className="action-btn"
-            style={{ width: "auto", padding: "10px 20px" }}
-            onClick={() => setShowAddModal(true)}
-          >
-            + New Invoice
-          </button>
         </div>
 
         <div className="input-group" style={{ marginBottom: "20px" }}>
@@ -193,32 +151,6 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
                 </div>
               </div>
             ))}
-          </div>
-        )}
-
-        {showAddModal && (
-          <div className="modal-backdrop" style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000 }}>
-            <div className="terminal-card" style={{ width: "400px", maxWidth: "90%", background: "var(--card-bg, #fff)", padding: "20px", borderRadius: "8px" }}>
-              <h3>Create New Invoice</h3>
-              <form onSubmit={handleAddInvoice}>
-                <div className="input-group">
-                  <label>Invoice Number</label>
-                  <input required placeholder="e.g., INV-001" value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <label>Amount ($)</label>
-                  <input type="number" step="0.01" required placeholder="e.g., 150.00" value={amount} onChange={(e) => setAmount(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <label>Description</label>
-                  <input placeholder="e.g., Brake pad replacement" value={description} onChange={(e) => setDescription(e.target.value)} />
-                </div>
-                <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
-                  <button type="submit" className="action-btn">Save Invoice</button>
-                  <button type="button" className="action-btn" style={{ background: "#6c757d" }} onClick={() => setShowAddModal(false)}>Cancel</button>
-                </div>
-              </form>
-            </div>
           </div>
         )}
       </main>
