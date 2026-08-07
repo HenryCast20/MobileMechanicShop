@@ -89,7 +89,9 @@ export default function Dashboard({ user, setUser ,setCurrentView}){
           <div className="dashboard-card">
             <h3>📅 Appointments</h3>
             <p>View upcoming visits and scheduled repairs.</p>
-           <button data-square-booking="true">View Appointments</button>
+           <button onClick={() => window.open("https://book.squareup.com/appointments/ardukiyf97mvn1/location/LV5F6TF5NE8TP", "_blank")}
+            >
+             View Appointments</button>
           </div>
 
 
