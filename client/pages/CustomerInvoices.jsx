@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../app.css";
 
 export default function CustomerInvoices({ user, setUser, setCurrentView }) {
-  const [email, setEmail] = useState("");
+  const [showProfile, setShowProfile] = useState(false);
   const [invoices, setInvoices] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleLookup = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+
+  const fetchInvoices = async (query = "") => {
     try {
-      const response = await fetch("/api/customer-invoices", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify({ email })
+      setLoading(true);
+      const url = query ? `/api/invoices?search=${encodeURIComponent(query)}` : "/api/invoices";
+      
+      const response = await fetch(url, {
+        credentials: "include"
       });
 
       if (!response.ok) {
@@ -27,77 +27,201 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
       }
 
       const data = await response.json();
-      // Handle whether backend returns an array directly or nested in an object
-      setInvoices(Array.isArray(data) ? data : data.invoices || []);
-      setSearched(true);
+      setInvoices(data);
+      setError("");
     } catch (err) {
-      console.error(err);
-      setError("Error fetching invoices");
+      setError(err.message || "Error loading invoices.");
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchInvoices();
+  }, []);
+
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearchTerm(val);
+    fetchInvoices(val);
+  };
+
+  const handleAddInvoice = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/invoices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ 
+          invoice_number: invoiceNumber, 
+          amount: amount ? Number(amount) : null, 
+          description 
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add invoice.");
+      }
+
+      setInvoiceNumber("");
+      setAmount("");
+      setDescription("");
+      setShowAddModal(false);
+      fetchInvoices(searchTerm);
+    } catch (err) {
+      setError(err.message || "Error adding invoice.");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
-    <div style={{ maxWidth: "600px", margin: "40px auto", padding: "0 20px" }}>
-      <button 
-        type="button"
-        onClick={() => setCurrentView("dashboard")} 
-        style={{ marginBottom: "20px", width: "auto", padding: "10px 20px" }}
-        className="action-btn"
-      >
-        ← Back to Dashboard
-      </button>
+    <div className="dashboard-page">
+      <header className="dashboard-header">
+        <div className="dashboard-brand">
+          <h1>Enrique Mobile Mechanic</h1>
+          <p>Professional Repair & Diagnostic Services</p>
+        </div>
 
-      <div className="invoice-container">
-        <h2>Your Service Invoices</h2>
-        <form onSubmit={handleLookup}>
-          <input
-            type="email"
-            placeholder="Enter your email to check bills..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Searching..." : "View My Invoices"}
-          </button>
-        </form>
+        <div className="dashboard-actions">
+          <div className="profile-wrapper">
+            <button
+              className="profile-toggle"
+              onClick={() => setShowProfile(!showProfile)}
+            >
+              👤 Profile
+            </button>
 
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-
-        {searched && (
-          <div className="invoice-results" style={{ marginTop: "20px" }}>
-            {invoices.length === 0 ? (
-              <p>No invoices found for this email address.</p>
-            ) : (
-              invoices.map((inv) => {
-                const amountDue = inv.primaryPaymentRequest?.computedAmountMoney?.amount || 0;
-                const isPaid = inv.status === "PAID";
-
-                return (
-                  <div key={inv.id || inv.invoiceNumber} className={`invoice-card ${isPaid ? "paid" : "unpaid"}`} style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "10px", borderRadius: "6px" }}>
-                    <p><strong>Invoice #:</strong> {inv.invoiceNumber || "Draft"}</p>
-                    <p><strong>Status:</strong> {inv.status}</p>
-                    <p><strong>Total:</strong> ${(amountDue / 100).toFixed(2)}</p>
-                    
-                    {!isPaid && inv.publicUrl && (
-                      <a 
-                        href={inv.publicUrl} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="pay-btn"
-                      >
-                        Pay Online Now
-                      </a>
-                    )}
-                  </div>
-                );
-              })
+            {showProfile && (
+              <div className="profile-dropdown">
+                <h3>Customer Profile</h3>
+                <p>
+                  <strong>Name</strong><br />
+                  {user?.firstName || "Henry"} {user?.lastName || ""}
+                </p>
+                <p>
+                  <strong>Email</strong><br />
+                  {user?.email || "Not Available"}
+                </p>
+                <p>
+                  <strong>Phone</strong><br />
+                  {user?.phone || "Not Added"}
+                </p>
+                <button className="edit-profile-btn">
+                  Edit Profile
+                </button>
+              </div>
             )}
           </div>
+
+          <button
+            className="dashboard-logout"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <main className="dashboard-container">
+        <div className="vehicles-header-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <button 
+              className="action-btn" 
+              style={{ width: "auto", padding: "8px 15px", background: "#6c757d" }} 
+              onClick={() => setCurrentView("dashboard")}
+            >
+              ← Back
+            </button>
+            <div>
+              <h2>Customer Invoices</h2>
+              <p>View, manage, and settle your service invoices.</p>
+            </div>
+          </div>
+          <button
+            className="action-btn"
+            style={{ width: "auto", padding: "10px 20px" }}
+            onClick={() => setShowAddModal(true)}
+          >
+            + New Invoice
+          </button>
+        </div>
+
+        <div className="input-group" style={{ marginBottom: "20px" }}>
+          <input
+            type="text"
+            placeholder="Search by invoice number or description..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+
+        {error && (
+          <p className="error-message" style={{ color: "red", textAlign: "center", marginBottom: "15px" }}>
+            {error}
+          </p>
         )}
-      </div>
+
+        {loading ? (
+          <p style={{ textAlign: "center", padding: "40px" }}>Loading your invoices...</p>
+        ) : invoices.length === 0 ? (
+          <div className="dashboard-card" style={{ textAlign: "center", padding: "40px" }}>
+            <h3>No invoices found</h3>
+            <p>You don't have any active invoices matching your search.</p>
+          </div>
+        ) : (
+          <div className="dashboard-grid">
+            {invoices.map((inv) => (
+              <div className="dashboard-card" key={inv.id || inv.invoice_id}>
+                <h3>📄 Invoice #{inv.invoice_number || inv.id}</h3>
+                <p><strong>Amount:</strong> ${inv.amount ? inv.amount.toFixed(2) : "0.00"}</p>
+                <p><strong>Status:</strong> {inv.status || "Pending"}</p>
+                <p><strong>Description:</strong> {inv.description || "General Service"}</p>
+                <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+                  <button className="action-btn" style={{ flex: 1, padding: "8px", fontSize: "0.85rem" }}>
+                    View Details
+                  </button>
+                  <button className="action-btn" style={{ flex: 1, padding: "8px", fontSize: "0.85rem", background: "var(--primary-blue)" }}>
+                    Pay Now
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {showAddModal && (
+          <div className="modal-backdrop" style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000 }}>
+            <div className="terminal-card" style={{ width: "400px", maxWidth: "90%", background: "var(--card-bg, #fff)", padding: "20px", borderRadius: "8px" }}>
+              <h3>Create New Invoice</h3>
+              <form onSubmit={handleAddInvoice}>
+                <div className="input-group">
+                  <label>Invoice Number</label>
+                  <input required placeholder="e.g., INV-001" value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+                </div>
+                <div className="input-group">
+                  <label>Amount ($)</label>
+                  <input type="number" step="0.01" required placeholder="e.g., 150.00" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                </div>
+                <div className="input-group">
+                  <label>Description</label>
+                  <input placeholder="e.g., Brake pad replacement" value={description} onChange={(e) => setDescription(e.target.value)} />
+                </div>
+                <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
+                  <button type="submit" className="action-btn">Save Invoice</button>
+                  <button type="button" className="action-btn" style={{ background: "#6c757d" }} onClick={() => setShowAddModal(false)}>Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
