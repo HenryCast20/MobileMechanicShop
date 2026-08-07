@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../app.css";
 
 export default function Dashboard({ user, setUser ,setCurrentView}){
   const [showProfile, setShowProfile] = useState(false);
-
-  useEffect(() => { //sqaure widget
-    const script = document.createElement("script");
-    script.src = "https://square.site/appointments/buyer/widget/ardukiyf97mvn1/LV5F6TF5NE8TP.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
+  
   const handleLogout = () => {
   localStorage.removeItem("user");
-
   setUser(null);
 };
 
@@ -101,7 +89,7 @@ export default function Dashboard({ user, setUser ,setCurrentView}){
           <div className="dashboard-card">
             <h3>📅 Appointments</h3>
             <p>View upcoming visits and scheduled repairs.</p>
-            <button data-square-booking="true">View Appointments</button>
+           <button data-square-booking="true">View Appointments</button>
           </div>
 
 
