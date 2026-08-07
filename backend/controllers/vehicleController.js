@@ -20,7 +20,7 @@ const getCars = async (req, res) => {
             const { make, model, year, vin, odometer, license_plate } = req.body;
         
             const [result] = await db.query(
-              'INSERT INTO vehicles (customer_id, make, model, year, vin, odometer, license_plate) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              'INSERT INTO vehicles (customer_id, make, model, year_produced, vin, odometer, license_plate) VALUES (?, ?, ?, ?, ?, ?, ?)',
               [customerId, make, model, year, vin, odometer, license_plate]
             );
         
