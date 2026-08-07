@@ -72,8 +72,6 @@ header p {
     font-weight: 300;
 }
 
-
-
 /* ===== Brand Header ===== */
 
 .brand-header {
@@ -95,6 +93,7 @@ header p {
     width: 90px;
     height: 90px;
 }
+
 @media (max-width: 600px) {
     .header-icon {
         display: none;
@@ -114,6 +113,7 @@ header p {
         text-align: center;
     }
 }
+
 /* Floating Bottom-Right Emoji Theme Toggle */
 #theme-toggle {
     position: fixed;
@@ -259,7 +259,7 @@ body.dark-mode .input-group label {
 
 .google-login-container {
   margin-top: -5px;
-  padding: 20x 0;
+  padding: 20px 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -281,6 +281,7 @@ footer {
     border-top: 1px solid #dee2e6;
     transition: background 0.3s ease, color 0.3s ease;
 }
+
 /* ================================
    CUSTOMER DASHBOARD
 ================================ */
@@ -361,8 +362,8 @@ footer {
     top: 55px;
     right: 0;
     width: 280px;
-    background: white;
-    color: #212529;
+    background: var(--card-bg);
+    color: var(--text-dark);
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -370,18 +371,18 @@ footer {
 }
 
 .profile-dropdown h3 {
-    color: #0b2545;
+    color: var(--primary-blue);
     margin-bottom: 15px;
 }
 
 .profile-dropdown p {
-    color: #212529;
+    color: var(--text-dark);
     margin-bottom: 15px;
 }
 
 .edit-profile-btn {
     width: 100%;
-    background: #0b2545;
+    background: var(--primary-blue);
     color: white;
     border: none;
     padding: 10px;
@@ -431,8 +432,8 @@ footer {
 .dashboard-card {
     width: 260px;
     height: 190px;
-    background: white;
-    color: #212529;
+    background: var(--card-bg);
+    color: var(--text-dark);
     border-radius: 12px;
     padding: 25px;
     border-top: 5px solid var(--accent-red);
@@ -443,11 +444,11 @@ footer {
 }
 
 .dashboard-card h3 {
-    color: #0b2545;
+    color: var(--primary-blue);
 }
 
 .dashboard-card p {
-    color: #212529;
+    color: var(--text-dark);
 }
 
 .dashboard-card button {
@@ -468,17 +469,14 @@ footer {
 /* TABLET */
 
 @media (max-width:1100px) {
-
     .dashboard-grid {
         grid-template-columns: repeat(2,260px);
     }
-
 }
 
 /* MOBILE */
 
 @media (max-width:1100px) {
-
     .dashboard-header {
         flex-direction: column;
         justify-content: center;
@@ -530,8 +528,8 @@ footer {
         max-width: 360px;
         margin: 0 auto;
     }
-
 }
+
 /* ================================
    MY VEHICLES DASHBOARD SECTION
 ================================ */
@@ -556,7 +554,6 @@ footer {
     font-size: 1rem;
 }
 
-/* Vehicle card specific styling adjustments */
 .dashboard-card .vehicle-details {
     display: flex;
     flex-direction: column;
@@ -573,7 +570,6 @@ body.dark-mode .dashboard-card .vehicle-details p {
     color: var(--text-dark);
 }
 
-/* Modal form adjustments */
 .modal-backdrop .terminal-card {
     max-width: 450px;
     max-height: 90vh;
@@ -592,10 +588,29 @@ body.dark-mode .modal-backdrop h3 {
     color: #64b5f6;
 }
 
-
 /* ================================
    CUSTOMER INVOICES PORTAL CSS
 ================================ */
+
+.invoices-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.invoices-header-row h2 {
+    color: var(--pure-white);
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.invoices-header-row p {
+    color: #d8e2dc;
+    font-size: 1rem;
+}
 
 .invoice-container {
     max-width: 580px;
@@ -621,7 +636,6 @@ body.dark-mode .invoice-container h3 {
     color: #64b5f6;
 }
 
-/* Lookup Form Layout */
 .invoice-form {
     display: flex;
     flex-direction: column;
@@ -693,7 +707,6 @@ body.dark-mode .invoice-input-group label {
     box-shadow: none;
 }
 
-/* Results Section */
 .invoice-results {
     display: flex;
     flex-direction: column;
@@ -708,7 +721,6 @@ body.dark-mode .invoice-input-group label {
     font-size: 0.95rem;
 }
 
-/* Individual Invoice Cards */
 .invoice-card {
     padding: 20px;
     border-radius: 8px;
@@ -742,7 +754,6 @@ body.dark-mode .invoice-input-group label {
     align-items: center;
 }
 
-/* Status Badges */
 .invoice-status-paid {
     background-color: rgba(16, 185, 129, 0.12);
     color: #10b981;
@@ -763,7 +774,6 @@ body.dark-mode .invoice-input-group label {
     text-transform: uppercase;
 }
 
-/* Pay Online Button */
 .invoice-pay-btn {
     display: block;
     width: 100%;
