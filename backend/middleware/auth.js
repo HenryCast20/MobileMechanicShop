@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Expects "Bearer TOKEN"
-
+// Grab the token securely from the HTTP-only cookie
+    const token = req.cookies && req.cookies.token;
+    
     if (!token) {
         return res.status(401).json({ error: 'Access denied. No token provided.' });
     }
