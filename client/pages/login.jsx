@@ -55,10 +55,7 @@ export default function Login({ setUser }) {
 
 
         // Save token and user separately so API calls can find them
-        localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-
-
         setUser(data.user);
 
 
