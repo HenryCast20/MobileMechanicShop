@@ -162,7 +162,7 @@ main {
 .terminal-card {
     background: var(--card-bg);
     width: 100%;
-    max-width: 420px;
+    max-width: 520px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 37, 69, 0.12);
     overflow: hidden;
@@ -197,7 +197,7 @@ main {
 
 /* Form Body */
 .form-container {
-    padding: 30px;
+    padding: 40px;
 }
 
 .form-section {
