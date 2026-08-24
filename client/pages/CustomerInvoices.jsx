@@ -52,7 +52,7 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
     return (
       String(r.repair_id).includes(term) ||
       (r.category || "").toLowerCase().includes(term) ||
-      `${r.make} ${r.model}`.toLowerCase().includes(term)
+      `${r.year_produced} ${r.make} ${r.model}`.toLowerCase().includes(term)
     );
   });
 
