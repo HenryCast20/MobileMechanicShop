@@ -353,7 +353,7 @@ export default function Login({ setUser }) {
                   );
 
 
-                 localStorage.setItem("token", data.token);
+                
                  localStorage.setItem("user", JSON.stringify(data.user));
 
 
