@@ -125,7 +125,7 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
         ) : (
           <div className="dashboard-grid">
             {filtered.map((r) => (
-              <div className="dashboard-card" key={r.repair_id}>
+              <div className="dashboard-card invoice-list-card" key={r.repair_id}>
                 <h3>Invoice #{r.repair_id}</h3>
                 <p><strong>Vehicle:</strong> {r.year_produced} {r.make} {r.model}</p>
                 <p><strong>Date:</strong> {r.service_date ? new Date(r.service_date).toLocaleDateString() : "-"}</p>
