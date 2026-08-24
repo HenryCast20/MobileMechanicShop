@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { logoutUser } from "../services/authservice";
 import "../app.css";
 
 export default function MyVehicles({ user, setUser, setCurrentView }) {
@@ -87,10 +88,14 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
     }
   };
 
-    const handleLogout = () => {
-      localStorage.removeItem("user");
-      setUser(null);
-    };
+  const handleLogout = async () => {
+  try {
+    await logoutUser();
+  } catch (err) {
+    console.error(err);
+  }
+  setUser(null);
+};
 
   return (
     <div className="dashboard-page">
