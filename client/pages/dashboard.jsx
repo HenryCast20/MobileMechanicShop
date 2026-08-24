@@ -41,7 +41,7 @@ export default function Dashboard({ user, setUser, setCurrentView }) {
     return new Date(dateStr + "T12:00:00").toLocaleDateString("en-US", { weekday: "short" });
   };
 
-  const rainDays = forecast.filter((d) => d.rain >= 70).length;
+  const rainToday = forecast[0]?.rain >= 70;
 
   return (
     <div className="dashboard-page">
@@ -99,11 +99,11 @@ export default function Dashboard({ user, setUser, setCurrentView }) {
           <section className="weather-panel">
             <div className="weather-head">
               <h3>Orlando forecast</h3>
-              {rainDays > 0 && (
-                <span className="weather-alert">
-                  Rain likely — service may be rescheduled
-                </span>
-              )}
+              {rainToday && (
+              <span className="weather-alert">
+                ⚠️ Rain expected — service may be unavailable, call first
+              </span>
+            )}
             </div>
             <div className="weather-strip">
               {forecast.map((d, i) => (
