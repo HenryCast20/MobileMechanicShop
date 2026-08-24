@@ -10,7 +10,7 @@ export default function Header({ user, setUser }) {
   const [pEmail, setPEmail] = useState("");
   const [profileError, setProfileError] = useState("");
 
- const handleLogout = async () => {
+const handleLogout = async () => {
   try {
     await logoutUser();
   } catch (err) {
@@ -19,6 +19,8 @@ export default function Header({ user, setUser }) {
   if (window.google?.accounts?.id) {
     window.google.accounts.id.disableAutoSelect();
   }
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
   setUser(null);
 };
 
