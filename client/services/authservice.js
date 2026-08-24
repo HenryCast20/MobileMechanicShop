@@ -40,4 +40,13 @@ export const googleLogin = async (token) => {
   return data;
 };
 
+export const logoutUser = async () => {
+  const response = await fetch(`${API_URL}/auth/logout`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || 'Logout failed');
+  return data;
+};
 
