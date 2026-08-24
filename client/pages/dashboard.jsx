@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { logoutUser } from "../services/authservice";
 import "../app.css";
 
-export default function Dashboard({ user, setUser ,setCurrentView}){
+export default function Dashboard({ user, setUser, setCurrentView }) {
   const [showProfile, setShowProfile] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(document.body.classList.contains("dark-mode"));
-  
-const handleLogout = async () => {
-  try {
-    await logoutUser();
-  } catch (err) {
-    console.error(err);
-  }
-  setUser(null);
-};
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (err) {
+      console.error(err);
+    }
+    setUser(null);
+  };
 
   const toggleTheme = () => {
     const isDark = document.body.classList.toggle("dark-mode");
@@ -22,116 +22,93 @@ const handleLogout = async () => {
   };
 
   return (
-  <div className="dashboard-page">
-      {/* Floating Bottom-Right Theme Toggle Button */}
+    <div className="dashboard-page">
       <button id="theme-toggle" onClick={toggleTheme}>
         {isDarkMode ? "☀️" : "🌙"}
       </button>
-      
+
       <header className="dashboard-header">
         <div className="dashboard-brand">
           <h1>Enrique Mobile Mechanic</h1>
-          <p>Professional Repair & Diagnostic Services</p>
+          <p>Professional Repair &amp; Diagnostic Services</p>
         </div>
-
         <div className="dashboard-actions">
-
           <div className="profile-wrapper">
-
             <button
               className="profile-toggle"
               onClick={() => setShowProfile(!showProfile)}
             >
               👤 Profile
             </button>
-
             {showProfile && (
               <div className="profile-dropdown">
-
                 <h3>Customer Profile</h3>
-
                 <p>
                   <strong>Name</strong><br />
                   {user?.firstName || "Henry"} {user?.lastName || ""}
                 </p>
-
                 <p>
                   <strong>Email</strong><br />
                   {user?.email || "Not Available"}
                 </p>
-
                 <p>
                   <strong>Phone</strong><br />
                   {user?.phone || "Not Added"}
                 </p>
-
-                <button className="edit-profile-btn">
-                  Edit Profile
-                </button>
-
+                <button className="edit-profile-btn">Edit Profile</button>
               </div>
             )}
-
           </div>
-
-          <button
-            className="dashboard-logout"
-            onClick={handleLogout}
-          >
+          <button className="dashboard-logout" onClick={handleLogout}>
             Logout
           </button>
-
         </div>
-
       </header>
 
       <main className="dashboard-container">
-
         <section className="dashboard-welcome">
-
-          <h2>
-            Welcome back, {user?.firstName || "Henry"}
-          </h2>
-
-          <p>
-            Manage your vehicles, appointments, services, and invoices.
-          </p>
-
+          <h2>Welcome back, {user?.firstName || "Henry"}</h2>
+          <p>Manage your vehicles, appointments, and invoices.</p>
         </section>
 
-        <section className="dashboard-grid">
-
-          <div className="dashboard-card">
-            <h3>📅 Appointments</h3>
-            <p>View upcoming visits and scheduled repairs.</p>
-           <button onClick={() => window.open("https://book.squareup.com/appointments/ardukiyf97mvn1/location/LV5F6TF5NE8TP", "_blank")}
+        <section className="hud-stack">
+          <div className="hud-bar">
+            <div className="hud-icon">📅</div>
+            <div className="hud-text">
+              <h3>Appointments</h3>
+              <p>Book a visit or view your scheduled repairs.</p>
+            </div>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://book.squareup.com/appointments/ardukiyf97mvn1/location/LV5F6TF5NE8TP",
+                  "_blank"
+                )
+              }
             >
-             View Appointments</button>
+              Book
+            </button>
           </div>
 
-
-          <div className="dashboard-card">
-            <h3>🔧 Services</h3>
-            <p>Review completed repairs and service history.</p>
-            <button>View Services</button>
+          <div className="hud-bar">
+            <div className="hud-icon">🚗</div>
+            <div className="hud-text">
+              <h3>My Vehicles</h3>
+              <p>Manage your vehicles and maintenance records.</p>
+            </div>
+            <button onClick={() => setCurrentView("myVehicles")}>Manage</button>
           </div>
 
-          <div className="dashboard-card">
-            <h3>🚗 My Vehicles</h3>
-            <p>Manage your vehicles and maintenance records.</p>
-            <button onClick={() => setCurrentView("myVehicles")}>Manage Vehicles</button>
+          <div className="hud-bar">
+            <div className="hud-icon">🧾</div>
+            <div className="hud-text">
+              <h3>Invoices</h3>
+              <p>View your service history, invoices, and receipts.</p>
+            </div>
+            <button onClick={() => setCurrentView("CustomerInvoices")}>View</button>
           </div>
-
-          <div className="dashboard-card">
-            <h3>🧾 Invoices</h3>
-            <p>View invoices, payments, and receipts.</p>
-            <button onClick={() => setCurrentView("CustomerInvoices")}>View Invoices</button>
-          </div>
-
         </section>
-
       </main>
-
     </div>
   );
 }
