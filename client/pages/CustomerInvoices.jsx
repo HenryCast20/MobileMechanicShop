@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { logoutUser } from "../services/authservice";
 import "../app.css";
 
 export default function CustomerInvoices({ user, setUser, setCurrentView }) {
@@ -36,9 +37,13 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
   };
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
-    setUser(null);
-  };
+  try {
+    await logoutUser();
+  } catch (err) {
+    console.error(err);
+  }
+  setUser(null);
+};
 
   const money = (v) => Number(v || 0).toFixed(2);
 
