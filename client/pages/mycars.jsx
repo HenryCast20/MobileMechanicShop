@@ -206,7 +206,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             </div>
           </div>
           <button className="action-btn" style={{ width: "auto", padding: "10px 20px" }}
-            onClick={() => { resetForm(); setError(""); setShowAddModal(true); }}
+            onClick={() => { resetForm(); setError(""); setShowAddModal(true); }}>
             + Add Vehicle
           </button>
         </div>
@@ -216,12 +216,11 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
 
-        {error && (
+        {error && !showAddModal && !editingCar && (
           <p className="error-message" style={{ color: "red", textAlign: "center", marginBottom: "15px" }}>
             {error}
           </p>
         )}
-
         {loading ? (
           <p style={{ textAlign: "center", padding: "40px" }}>Loading your vehicles...</p>
         ) : filtered.length === 0 ? (
