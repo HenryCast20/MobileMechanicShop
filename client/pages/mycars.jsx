@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import "../app.css";
 
 export default function MyVehicles({ user, setUser, setCurrentView }) {
-  const [showProfile, setShowProfile] = useState(false);
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -113,15 +112,6 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-    } catch (err) {
-      console.error(err);
-    }
-    setUser(null);
-  };
-
   const money = (v) => Number(v || 0).toFixed(2);
 
   const filtered = vehicles.filter((car) => {
@@ -167,30 +157,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
 
   return (
     <div className="dashboard-page">
-      <header className="dashboard-header">
-        <div className="dashboard-brand">
-          <h1>Enrique Mobile Mechanic</h1>
-          <p>Professional Repair &amp; Diagnostic Services</p>
-        </div>
-
-        <div className="dashboard-actions">
-          <div className="profile-wrapper">
-            <button className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
-              👤 Profile
-            </button>
-            {showProfile && (
-              <div className="profile-dropdown">
-                <h3>Customer Profile</h3>
-                <p><strong>Name</strong><br />{user?.firstName} {user?.lastName}</p>
-                <p><strong>Email</strong><br />{user?.email || "Not Available"}</p>
-                <p><strong>Phone</strong><br />{user?.phone || "Not Added"}</p>
-                <button className="edit-profile-btn">Edit Profile</button>
-              </div>
-            )}
-          </div>
-          <button className="dashboard-logout" onClick={handleLogout}>Logout</button>
-        </div>
-      </header>
+      <Header user={user} setUser={setUser} />
 
       <main className="dashboard-container">
         <div className="vehicles-header-row">
@@ -221,6 +188,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             {error}
           </p>
         )}
+
         {loading ? (
           <p style={{ textAlign: "center", padding: "40px" }}>Loading your vehicles...</p>
         ) : filtered.length === 0 ? (
@@ -253,12 +221,12 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             <div className="terminal-card" onClick={(e) => e.stopPropagation()}
               style={{ width: "400px", maxWidth: "90%", padding: "30px", maxHeight: "90vh", overflowY: "auto" }}>
               <h3>{editingCar ? "Edit Vehicle" : "Add New Vehicle"}</h3>
-                {error && (
-                  <p style={{ color: "#d90429", marginBottom: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>
-                    {error}
-                  </p>
-                )}
-                <form onSubmit={editingCar ? handleUpdateVehicle : handleAddVehicle}>
+              {error && (
+                <p style={{ color: "#d90429", marginBottom: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>
+                  {error}
+                </p>
+              )}
+              <form onSubmit={editingCar ? handleUpdateVehicle : handleAddVehicle}>
                 {vehicleFields}
                 <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
                   <button type="submit" className="action-btn">
