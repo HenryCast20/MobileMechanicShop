@@ -10,14 +10,17 @@ export default function Header({ user, setUser }) {
   const [pEmail, setPEmail] = useState("");
   const [profileError, setProfileError] = useState("");
 
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-    } catch (err) {
-      console.error(err);
-    }
-    setUser(null);
-  };
+ const handleLogout = async () => {
+  try {
+    await logoutUser();
+  } catch (err) {
+    console.error(err);
+  }
+  if (window.google?.accounts?.id) {
+    window.google.accounts.id.disableAutoSelect();
+  }
+  setUser(null);
+};
 
   const openProfileEdit = () => {
     setPFirst(user?.firstName || "");
