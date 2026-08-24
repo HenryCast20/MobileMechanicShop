@@ -1092,3 +1092,16 @@ body.dark-mode .modal-backdrop h3 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.weather-flag {
+    background: var(--accent-red);
+    color: #ffffff;
+    font-size: .68rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-top: 4px;
+    white-space: nowrap;
+}
