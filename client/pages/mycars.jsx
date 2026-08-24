@@ -253,7 +253,12 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             <div className="terminal-card" onClick={(e) => e.stopPropagation()}
               style={{ width: "400px", maxWidth: "90%", padding: "30px", maxHeight: "90vh", overflowY: "auto" }}>
               <h3>{editingCar ? "Edit Vehicle" : "Add New Vehicle"}</h3>
-              <form onSubmit={editingCar ? handleUpdateVehicle : handleAddVehicle}>
+                {error && (
+                  <p style={{ color: "#d90429", marginBottom: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>
+                    {error}
+                  </p>
+                )}
+                <form onSubmit={editingCar ? handleUpdateVehicle : handleAddVehicle}>
                 {vehicleFields}
                 <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
                   <button type="submit" className="action-btn">
