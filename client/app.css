@@ -1060,7 +1060,7 @@ body.dark-mode .modal-backdrop h3 {
     border-top: 3px solid transparent;
 }
 
-.weather-day.wet {
+.weather-day.today {
     border-top-color: var(--accent-red);
 }
 
