@@ -48,16 +48,16 @@ foreign key (customer_id) references customers(customer_id) on delete cascade
 );
 
 CREATE TABLE repair_items (
-  item_id INT AUTO_INCREMENT PRIMARY KEY,
-  repair_id INT NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  item_type ENUM('Part','Labor','Fee') NOT NULL DEFAULT 'Part',
-  quantity DECIMAL(10,2) NOT NULL DEFAULT 1,
-  unit_price DECIMAL(10,2) NOT NULL,
-  unit_cost DECIMAL(10,2) NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (repair_id) REFERENCES repairs(repair_id) ON DELETE CASCADE,
-  INDEX idx_repair_id (repair_id)
+item_id INT AUTO_INCREMENT PRIMARY KEY,
+repair_id INT NOT NULL,
+description VARCHAR(255) NOT NULL,
+item_type ENUM('Part','Labor','Fee') NOT NULL DEFAULT 'Part',
+quantity DECIMAL(10,2) NOT NULL DEFAULT 1,
+unit_price DECIMAL(10,2) NOT NULL,
+unit_cost DECIMAL(10,2) NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (repair_id) REFERENCES repairs(repair_id) ON DELETE CASCADE,
+INDEX idx_repair_id (repair_id)
 );
 
 Create table appointments(
