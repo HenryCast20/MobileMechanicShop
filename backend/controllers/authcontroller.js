@@ -355,4 +355,5 @@ module.exports = {
   loginUser,
   googleLogin,
   register,
+  ogout,
 };
