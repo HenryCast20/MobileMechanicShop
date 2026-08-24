@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { logoutUser } from "../services/authservice";
 import "../app.css";
 
 export default function Dashboard({ user, setUser ,setCurrentView}){
   const [showProfile, setShowProfile] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(document.body.classList.contains("dark-mode"));
   
-  const handleLogout = () => {
-  localStorage.removeItem("user");
+const handleLogout = async () => {
+  try {
+    await logoutUser();
+  } catch (err) {
+    console.error(err);
+  }
   setUser(null);
 };
 
