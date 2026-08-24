@@ -6,6 +6,7 @@ const vehicleRoutes = require('./backend/routes/vehicleRoutes');
 const repairRoutes = require('./backend/routes/repairRoutes');
 const cookieParser = require('cookie-parser');
 const profileRoutes = require('./backend/routes/profileRoutes');
+const weatherRoutes = require('./backend/routes/weatherRoutes');
 const app = express();
 
 
@@ -22,6 +23,7 @@ app.use('/api/auth', authroutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/repairs', repairRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/weather', weatherRoutes);
 // ==========================================
 // FRONTEND STATIC FILES & CATCH-ALL ROUTE
 // ==========================================
