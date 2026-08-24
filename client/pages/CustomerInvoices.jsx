@@ -67,7 +67,7 @@ export default function CustomerInvoices({ user, setUser, setCurrentView }) {
         <div className="dashboard-actions">
           <div className="profile-wrapper">
             <button className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
-              Profile
+              👤 Profile
             </button>
 
             {showProfile && (
