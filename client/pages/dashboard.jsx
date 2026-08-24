@@ -3,17 +3,7 @@ import Header from "../components/Header";
 import "../app.css";
 
 export default function Dashboard({ user, setUser, setCurrentView }) {
-  const [showProfile, setShowProfile] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(document.body.classList.contains("dark-mode"));
-
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-    } catch (err) {
-      console.error(err);
-    }
-    setUser(null);
-  };
 
   const toggleTheme = () => {
     const isDark = document.body.classList.toggle("dark-mode");
@@ -27,43 +17,7 @@ export default function Dashboard({ user, setUser, setCurrentView }) {
         {isDarkMode ? "☀️" : "🌙"}
       </button>
 
-      <header className="dashboard-header">
-        <div className="dashboard-brand">
-          <h1>Enrique Mobile Mechanic</h1>
-          <p>Professional Repair &amp; Diagnostic Services</p>
-        </div>
-        <div className="dashboard-actions">
-          <div className="profile-wrapper">
-            <button
-              className="profile-toggle"
-              onClick={() => setShowProfile(!showProfile)}
-            >
-              👤 Profile
-            </button>
-            {showProfile && (
-              <div className="profile-dropdown">
-                <h3>Customer Profile</h3>
-                <p>
-                  <strong>Name</strong><br />
-                  {user?.firstName || "Henry"} {user?.lastName || ""}
-                </p>
-                <p>
-                  <strong>Email</strong><br />
-                  {user?.email || "Not Available"}
-                </p>
-                <p>
-                  <strong>Phone</strong><br />
-                  {user?.phone || "Not Added"}
-                </p>
-                <button className="edit-profile-btn">Edit Profile</button>
-              </div>
-            )}
-          </div>
-          <button className="dashboard-logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-      </header>
+      <Header user={user} setUser={setUser} />
 
       <main className="dashboard-container">
         <section className="dashboard-welcome">
