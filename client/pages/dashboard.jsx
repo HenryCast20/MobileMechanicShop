@@ -107,13 +107,13 @@ export default function Dashboard({ user, setUser, setCurrentView }) {
             </div>
             <div className="weather-strip">
               {forecast.map((d, i) => (
-                <div className={`weather-day${d.rain >= 70 ? " wet" : ""}`} key={d.date}>
-                  <span className="weather-name">{dayName(d.date, i)}</span>
-                  <span className="weather-icon">{weatherIcon(d.code)}</span>
-                  <span className="weather-temp">{d.high}° / {d.low}°</span>
-                  <span className="weather-rain">{d.rain}% rain</span>
-                  {d.rain >= 70 && <span className="weather-flag">Rain likely</span>}
-                </div>
+               <div className={`weather-day${i === 0 ? " today" : ""}`} key={d.date}>
+                <span className="weather-name">{dayName(d.date, i)}</span>
+                <span className="weather-icon">{weatherIcon(d.code)}</span>
+                <span className="weather-temp">{d.high}° / {d.low}°</span>
+                <span className="weather-rain">{d.rain}% rain</span>
+                {d.rain >= 70 && <span className="weather-flag">Rain likely</span>}
+              </div>
               ))}
             </div>
           </section>
