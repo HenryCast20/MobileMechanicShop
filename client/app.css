@@ -1022,12 +1022,24 @@ body.dark-mode .modal-backdrop h3 {
 }
 
 .weather-alert {
-    background: rgba(217, 4, 41, .12);
-    color: var(--accent-red);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: .8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-red);
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: .95rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    box-shadow: 0 4px 14px rgba(217, 4, 41, .4);
+    animation: alertPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+    0%, 100% { box-shadow: 0 4px 14px rgba(217, 4, 41, .4); }
+    50% { box-shadow: 0 4px 22px rgba(217, 4, 41, .7); }
 }
 
 .weather-strip {
