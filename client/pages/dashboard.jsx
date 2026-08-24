@@ -112,6 +112,7 @@ export default function Dashboard({ user, setUser, setCurrentView }) {
                   <span className="weather-icon">{weatherIcon(d.code)}</span>
                   <span className="weather-temp">{d.high}° / {d.low}°</span>
                   <span className="weather-rain">{d.rain}% rain</span>
+                  {d.rain >= 70 && <span className="weather-flag">Rain likely</span>}
                 </div>
               ))}
             </div>
