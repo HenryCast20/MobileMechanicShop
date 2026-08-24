@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { logoutUser } from "../services/authservice";
+import Header from "../components/Header";
 import "../app.css";
 
 export default function Dashboard({ user, setUser, setCurrentView }) {
