@@ -44,6 +44,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
   };
 
   const openEdit = (car) => {
+    setError("");
     setMake(car.make || "");
     setModel(car.model || "");
     setYear(car.year_produced || "");
@@ -205,7 +206,7 @@ export default function MyVehicles({ user, setUser, setCurrentView }) {
             </div>
           </div>
           <button className="action-btn" style={{ width: "auto", padding: "10px 20px" }}
-            onClick={() => { resetForm(); setShowAddModal(true); }}>
+            onClick={() => { resetForm(); setError(""); setShowAddModal(true); }}
             + Add Vehicle
           </button>
         </div>
