@@ -806,3 +806,86 @@ body.dark-mode .modal-backdrop h3 {
     }
     .invoice-actions { display: none; }
 }
+
+
+/* ================================
+   HUD BARS
+================================ */
+
+.hud-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hud-bar {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: var(--card-bg);
+    color: var(--text-dark);
+    border-left: 6px solid var(--accent-red);
+    border-radius: 10px;
+    padding: 28px 32px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.hud-bar:hover {
+    transform: translateX(4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.35);
+}
+
+.hud-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+}
+
+.hud-text {
+    flex: 1;
+}
+
+.hud-text h3 {
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+}
+
+.hud-text p {
+    color: var(--text-dark);
+    font-size: .95rem;
+    opacity: .85;
+}
+
+.hud-bar button {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 130px;
+}
+
+.hud-bar button:hover {
+    filter: brightness(.9);
+}
+
+@media (max-width: 700px) {
+    .hud-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 24px;
+    }
+    .hud-bar button { width: 100%; }
+}
