@@ -6,7 +6,12 @@ history, and access itemized invoices; the shop manages repairs and records
 from a single dashboard. No local testing all pushed to live server to experiment 
 with server issue that local testing will not let you experience. While i know this
 is bad practice i did it fully to learn directly from mistakes and to discover how
-to fix server side issues due to bad code. 
+to fix server side issues due to bad code. The other issue you will notice is the 
+large amount of commits and that they are not descriptive since this is mostly 
+for research and experience i mostly focused on implementation and building 
+and did skip on critical things like detailed comments and detailed commits.
+This is my first solo project the other projects will be implmented using
+industry standards.
 
 ## 🚀 Key Features & Security Architecture
 
