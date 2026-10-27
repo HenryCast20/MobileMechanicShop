@@ -3,7 +3,10 @@
 A full-stack, secure automotive repair management web application built for an
 active mobile auto repair business. Customers register vehicles, view service
 history, and access itemized invoices; the shop manages repairs and records
-from a single dashboard.
+from a single dashboard. No local testing all pushed to live server to experiment 
+with server issue that local testing will not let you experience. While i know this
+is bad practice i did it fully to learn directly from mistakes and to discover how
+to fix server side issues due to bad code. 
 
 ## 🚀 Key Features & Security Architecture
 
